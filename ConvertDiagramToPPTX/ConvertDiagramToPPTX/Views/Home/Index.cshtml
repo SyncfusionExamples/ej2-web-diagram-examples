@@ -1,0 +1,93 @@
+﻿@using Syncfusion.EJ2;
+@using WebApplication1.Models;
+@using WebApplication1.Controllers;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<input type="button" value="convertDiagramToPPTX" onclick="convertDiagramToPPTX()"/>
+
+    <div class="control-section"> 
+        <ejs-diagram id="container" width="100%" height="700px" getConnectorDefaults="@ViewBag.getConnectorDefaults" getNodeDefaults="@ViewBag.getNodeDefaults">
+            <e-diagram-datasourcesettings id="Id" parentId="Manager" dataManager="new DataManager() { Data = (List<OrganizationalDetails>)ViewBag.Nodes }"></e-diagram-datasourcesettings>
+            <e-diagram-layout type="OrganizationalChart" getLayoutInfo="@ViewBag.GetLayoutInfo"></e-diagram-layout>
+        </ejs-diagram>
+    </div>
+    
+    <script>
+        function nodeDefaults(obj, diagram) {
+            obj.shape = {
+                type: 'Text', content: obj.data.Role,
+                margin: { left: 10, right: 10, top: 10, bottom: 10 }
+            };
+            obj.backgroundColor = obj.data.Color;
+            obj.style = { fill: 'none', strokeColor: 'none', color: 'white' };
+            obj.expandIcon = { height: 10, width: 10, shape: 'None', fill: 'lightgray', offset: { x: .5, y: 1 } };
+            obj.expandIcon.verticalAlignment = 'Center';
+            obj.expandIcon.margin = { left: 0, right: 0, top: 0, bottom: 0 };
+            obj.collapseIcon.offset = { x: .5, y: 1 };
+            obj.collapseIcon.verticalAlignment = 'Center';
+            obj.collapseIcon.margin = { left: 0, right: 0, top: 0, bottom: 0 };
+            obj.collapseIcon.height = 10;
+            obj.collapseIcon.width = 10;
+            obj.collapseIcon.shape = 'None';
+            obj.collapseIcon.fill = 'lightgray';
+            obj.width = 120;
+            obj.height = 30;
+            return obj;
+        }
+
+        function ConnectorDefaults(connector, diagram) {
+            connector.targetDecorator.shape = 'None';
+            connector.type = 'Orthogonal';
+            connector.style.strokeColor = '#6d6d6d';
+            connector.constraints = 0;
+            connector.cornerRadius = 5;
+            return connector;
+        }
+
+        function getLayoutInfo(node, options, orientation, type) {
+            if (node.data.Role === 'General Manager') {
+                options.assistants.push(options.children[0]);
+                options.children.splice(0, 1);
+            }
+            if (!options.hasSubTree) {
+                options.type = 'Right';
+            }
+        }
+
+        function convertDiagramToPPTX() {
+            var diagram = document.getElementById("container").ej2_instances[0];
+            var nodePropertyCollection = [];
+            var connectorPropertyCollection = [];
+            //save the diagram
+            var saveData = diagram.saveDiagram();
+            //parse the JSON string
+            var parsedData = JSON.parse(saveData);
+            //iterate the nodes
+            for (var i = 0; i < parsedData.nodes.length; i++) {
+                var node = parsedData.nodes[i];
+                nodePropertyCollection.push({ id: node.id, width: node.width, height: node.height, offsetX: node.offsetX, offsetY: node.offsetY, shape: node.shape, annotations: [{ content: node.data.Role }], addInfo: node.data.Level });
+            }
+            //iterate the connectors
+            for (var j = 0; j < parsedData.connectors.length; j++) {
+                var connector = parsedData.connectors[j];
+                connectorPropertyCollection.push({ id: connector.id, sourceID: connector.sourceID, targetID: connector.targetID });
+            }
+            var jsonResult = { nodeProperty: nodePropertyCollection, connectorProperty: connectorPropertyCollection };
+            var Jsonstring= JSON.stringify(jsonResult);
+            //pass JSON string to server via AJAX post
+            $.ajax({
+                url: "/Home/save",
+                type: "Post",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: Jsonstring,
+                success: function (Jsonstring) {
+                    alert("Success");
+                    return true;
+                },
+            });
+        }
+       
+    </script>

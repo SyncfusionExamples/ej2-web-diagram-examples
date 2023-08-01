@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -193,8 +193,7 @@ namespace WebApplication1.Controllers
             List<OrganizationalDetails> organizationaldetails = new List<OrganizationalDetails>();
             organizationaldetails.Add(new OrganizationalDetails("parent", "Board", "#71AF17", "", "", "level1"));
             organizationaldetails.Add(new OrganizationalDetails("1", "General Manager", "#71AF17", "parent", "right", "level2"));
-            organizationaldetails.Add(new OrganizationalDetails("11", "Assistant General Manager", "#71AF17", "1", "", "level3"));
-            organizationaldetails.Add(new OrganizationalDetails("2", "Human Resource Manager", "#1859B7", "1", "right", "level4"));
+             organizationaldetails.Add(new OrganizationalDetails("2", "Human Resource Manager", "#1859B7", "1", "right", "level4"));
             organizationaldetails.Add(new OrganizationalDetails("3", "Trainers", "#2E95D8", "2", "", "level5"));
             organizationaldetails.Add(new OrganizationalDetails("4", "Recruiting Team", "#2E95D8", "2", "", "level5"));
             organizationaldetails.Add(new OrganizationalDetails("6", "Design Manager", "#1859B7", "1", "right", "level4"));

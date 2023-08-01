@@ -1,4 +1,4 @@
-﻿@using Syncfusion.EJ2;
+@using Syncfusion.EJ2;
 @using WebApplication1.Models;
 @using WebApplication1.Controllers;
 @{
@@ -9,7 +9,8 @@
 
     <div class="control-section"> 
         <ejs-diagram id="container" width="100%" height="700px" getConnectorDefaults="@ViewBag.getConnectorDefaults" getNodeDefaults="@ViewBag.getNodeDefaults">
-            <e-diagram-datasourcesettings id="Id" parentId="Manager" dataManager="new DataManager() { Data = (List<OrganizationalDetails>)ViewBag.Nodes }"></e-diagram-datasourcesettings>
+          <e-diagram-rulersettings showRulers="true"></e-diagram-rulersettings>
+          <e-diagram-datasourcesettings id="Id" parentId="Manager" dataManager="new DataManager() { Data = (List<OrganizationalDetails>)ViewBag.Nodes }"></e-diagram-datasourcesettings>
             <e-diagram-layout type="OrganizationalChart" getLayoutInfo="@ViewBag.GetLayoutInfo"></e-diagram-layout>
         </ejs-diagram>
     </div>
@@ -47,10 +48,7 @@
         }
 
         function getLayoutInfo(node, options, orientation, type) {
-            if (node.data.Role === 'General Manager') {
-                options.assistants.push(options.children[0]);
-                options.children.splice(0, 1);
-            }
+         
             if (!options.hasSubTree) {
                 options.type = 'Right';
             }

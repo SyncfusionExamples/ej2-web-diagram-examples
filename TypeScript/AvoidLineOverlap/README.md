@@ -1,7 +1,6 @@
 # Essential&reg; JS 2 for JavaScript - Avoid Connector Overlap
 
-This sample illustrates how to enable avoid line overlapping feature in diagram contraints property to control line overlapping.
-
+This sample demonstrates how to enable avoid connector overlapping feature using the `constraints` property in Syncfusion&reg; EJ2 Diagram. This helps prevent connector lines from overlapping when multiple connectors are routed between nodes.
 
 ## Deployment
 

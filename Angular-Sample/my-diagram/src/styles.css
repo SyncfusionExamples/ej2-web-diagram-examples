@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@syncfusion/ej2-angular-diagrams/styles/material.css';
+
+#diagram
+{
+    float:right;
+}
+#symbolpalette
+{
+    float: left;
+}
+.sb-child-row
+{
+    padding: 8px;
+}
+button,select
+{
+    margin: 10px;
+    width: auto;
+    height: 25px;
+    background-color:rgb(102, 13, 75);
+    color: white;
+    border-radius: 3px;
+    border: rgb(102, 13, 75);
+}

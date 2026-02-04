@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Diagram",
+    "parentId": null,
+    "label": "Diagram"
+  },
+  {
+    "id": "Layout",
+    "parentId": "Diagram",
+    "label": "layout"
+  },
+  {
+    "id": "Tree Layout",
+    "parentId": "Layout",
+    "label": "Tree Layout"
+  },
+  {
+    "id": "Organizational Chart",
+    "parentId": "Layout",
+    "label": "Organizational Chart"
+  },
+  {
+    "id": "Hierarchical Tree",
+    "parentId": "Tree Layout",
+    "label": "Hierarchical Tree"
+  },
+  {
+    "id": "Radial Tree",
+    "parentId": "Tree Layout",
+    "label": "Radial Tree"
+  },
+  {
+    "id": "Mind Map",
+    "parentId": "Hierarchical Tree",
+    "label": "Mind Map"
+  },
+  {
+    "id": "Family Tree",
+    "parentId": "Hierarchical Tree",
+    "label": "Family Tree"
+  },
+  {
+    "id": "Management",
+    "parentId": "Organizational Chart",
+    "label": "Management"
+  },
+  {
+    "id": "Human Resources",
+    "parentId": "Management",
+    "label": "Human Resources"
+  },
+  {
+    "id": "University",
+    "parentId": "Management",
+    "label": "University"
+  },
+  {
+    "id": "Business",
+    "parentId": "Management",
+    "label": "Business"
+  }
+]

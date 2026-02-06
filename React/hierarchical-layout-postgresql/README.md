@@ -1,63 +1,56 @@
-# Syncfusion React Diagram + Node.js + PostgreSQL - Hierarchical Layout
+# Syncfusion React Diagram + Node.js + PostgreSQL - Organizational Layout
 
-A full-stack application demonstrating hierarchical data visualization using Syncfusion EJ2 React Diagram component with a Node.js backend and PostgreSQL database.
+A full-stack application demonstrating organizational chart data visualization using Syncfusion EJ2 React Diagram component with a Node.js backend and PostgreSQL database.
 
-## Features
+## Overview
 
-- 🎨 **Interactive Hierarchical Tree Layout** - Visual representation of hierarchical data
-- 🔄 **Real-time Data Binding** - Fetch and display data from PostgreSQL database
-- 💎 **Type-Safe** - Full TypeScript support for both frontend and backend
-- 🎯 **Clean Architecture** - Organized folder structure with separation of concerns
-- 🚀 **Modern Stack** - React 18, Node.js, Express, PostgreSQL
+This project provides a complete solution for visualizing hierarchical organizational data as an interactive diagram. The application fetches data from a PostgreSQL database through a REST API built with Node.js and Express, then displays it using Syncfusion's React Diagram component with automatic organizational chart layout.
 
 ## Technology Stack
 
 ### Frontend
 - **React 18+** with TypeScript
-- **Vite** - Build tool
-- **Syncfusion EJ2 React Diagrams** - Diagram component
-- **Material Theme** - Pre-built Syncfusion theme
+- **Vite** - Modern build tool
+- **Syncfusion EJ2 React Diagrams** - Interactive diagram component
+- **Material Theme** - Syncfusion Material design theme
 
 ### Backend
 - **Node.js 18+** with TypeScript
-- **Express** - Web framework
-- **PostgreSQL** - Database
-- **pg** - PostgreSQL client
-- **CORS** - Cross-origin resource sharing
+- **Express** - Lightweight web framework for REST API
+- **PostgreSQL** - Relational database for storing hierarchical data
+- **pg** - PostgreSQL client for Node.js
+- **CORS** - Middleware for cross-origin requests
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
+Ensure you have the following installed on your system:
 
 - **Node.js** 18.x or higher ([Download](https://nodejs.org/))
-- **PostgreSQL** 14.x or higher ([Download](https://www.postgresql.org/download/))
+- **PostgreSQL** 12.x or higher ([Download](https://www.postgresql.org/download/))
 - **npm** (comes with Node.js)
 
 ## Project Structure
 
 ```
 project-root/
-├── client/                    # React frontend
+├── client/                           # React frontend application
 │   ├── src/
 │   │   ├── components/
-│   │   │   └── DiagramHierarchicalLayout.tsx
+│   │   │   └── DiagramOrgchartLayout.tsx
 │   │   ├── services/
 │   │   │   └── layoutService.ts
 │   │   ├── types/
 │   │   │   └── layout.types.ts
 │   │   ├── App.tsx
-│   │   ├── App.css
 │   │   ├── main.tsx
-│   │   └── index.css         # Syncfusion CSS imports
+│   │   └── index.css
 │   ├── package.json
 │   └── tsconfig.json
 │
-├── server/                    # Node.js backend
+├── server/                           # Node.js backend application
 │   ├── src/
-│   │   ├── data/
-│   │   │   └── layoutSeed.json
 │   │   ├── db/
-│   │   │   └── index.ts      # Connection pool
+│   │   │   └── index.ts              # PostgreSQL connection pool
 │   │   ├── routes/
 │   │   │   └── layout.routes.ts
 │   │   ├── controllers/
@@ -67,306 +60,214 @@ project-root/
 │   │   ├── scripts/
 │   │   │   └── seedLayout.ts
 │   │   └── server.ts
-│   ├── .env                   # Environment variables (git-ignored)
-│   ├── .env.example          # Example environment variables
+│   ├── .env                          # Environment variables (not in version control)
+│   ├── .env.example                  # Example environment variables
 │   ├── package.json
 │   └── tsconfig.json
 │
-├── .gitignore
 └── README.md
 ```
 
-## Installation
+## Setup Instructions
 
-### 1. Clone or Download the Project
+### Step 1: Create PostgreSQL Database
 
-```bash
-# If using git
-git clone <repository-url>
-cd <project-folder>
+Before running the application, create the PostgreSQL database:
+
+1. Open **pgAdmin 4** or **psql command line**
+2. Execute the following SQL command:
+
+```sql
+CREATE DATABASE orgchart_db;
 ```
 
-### 2. Install Dependencies
+### Step 2: Install Backend Dependencies
 
-#### Backend
-```bash
+Navigate to the server directory and install packages:
+
+```powershell
 cd server
 npm install
 ```
 
-#### Frontend
-```bash
-cd ../client
-npm install
-```
+This installs:
+- **express** - Web framework
+- **pg** - PostgreSQL client
+- **cors** - Cross-origin middleware
+- **dotenv** - Environment variable management
+- **typescript** and **tsx** - TypeScript support
 
-### 3. Configure Environment Variables
+### Step 3: Configure Environment Variables
 
-Create a `.env` file in the `server` directory (copy from `.env.example`):
-
-```bash
-cd ../server
-copy .env.example .env   # Windows
-# or
-cp .env.example .env     # Mac/Linux
-```
-
-Edit the `.env` file with your PostgreSQL credentials:
+Create a `.env` file in the `server` directory with your PostgreSQL credentials:
 
 ```env
 DB_USER=postgres
-DB_PASSWORD=your_password
+DB_PASSWORD=your_postgres_password
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=diagramlayout
+DB_NAME=orgchart_db
 PORT=5000
 NODE_ENV=development
 ```
 
-### 4. Setup PostgreSQL Database
+> **Important**: Replace `your_postgres_password` with your actual PostgreSQL password.
 
-1. **Create Database**:
-   
-   Open PostgreSQL command line (psql) or pgAdmin and run:
-   ```sql
-   CREATE DATABASE diagramlayout;
-   ```
+### Step 4: Seed the Database
 
-2. **Run Seed Script**:
-   
-   From the `server` directory:
-   ```bash
-   npm run seed
-   ```
-   
-   This will:
-   - Create the `hierarchicallayout` table
-   - Insert sample data
-   - Create necessary indexes
+From the `server` directory, run the seed script to create the table and insert sample data:
 
-   You should see:
-   ```
-   Starting database seeding...
-   Table created successfully
-   Successfully seeded 12 nodes
-   Database seeding completed!
-   ```
+```powershell
+npm run seed
+```
 
-## Running the Application
+Expected output:
+```
+Starting database seeding...
+Table created successfully
+Successfully seeded 12 nodes
+Database seeding completed!
+```
+
+### Step 5: Install Frontend Dependencies
+
+Open a new terminal, navigate to the client directory, and install packages:
+
+```powershell
+cd client
+npm install
+```
+
+This installs:
+- **@syncfusion/ej2-react-diagrams** - Diagram component
+- **@syncfusion/ej2-data** - DataManager for data binding
+- **@syncfusion/ej2-base** - Core utilities
+- **react** and **react-dom** - React framework
+- **vite** - Build tool
+
+## Building and Running
 
 ### Start Backend Server
 
 From the `server` directory:
 
-```bash
+```powershell
 npm run dev
 ```
 
-You should see:
+Expected output:
 ```
 ✓ Database connected successfully
 ✓ Server running on http://localhost:5000
 ✓ API endpoint: http://localhost:5000/api/layoutJS
 ```
 
-### Start Frontend
+The backend server is now running. Keep this terminal window open.
 
-Open a new terminal and from the `client` directory:
+### Start Frontend Application
 
-```bash
+Open a **new terminal** and navigate to the `client` directory:
+
+```powershell
 npm run dev
 ```
 
-You should see:
+Expected output:
 ```
 VITE v7.x.x  ready in xxx ms
+
 ➜  Local:   http://localhost:5173/
 ```
 
 ### Access the Application
 
-Open your browser and navigate to: **http://localhost:5173**
+Open your web browser and navigate to:
 
-You should see the hierarchical diagram with nodes arranged in a tree layout.
+```
+http://localhost:5173
+```
 
-## Available Scripts
+You should see the organizational chart diagram rendered with data from PostgreSQL.
+
+## Available npm Scripts
 
 ### Backend (server/)
 
 - `npm run dev` - Start development server with hot reload
-- `npm run build` - Build TypeScript to JavaScript
-- `npm start` - Start production server
-- `npm run seed` - Seed the database with sample data
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm start` - Run production build
+- `npm run seed` - Initialize database with sample data
 
 ### Frontend (client/)
 
-- `npm run dev` - Start development server
+- `npm run dev` - Start Vite development server
 - `npm run build` - Build for production
-- `npm run preview` - Preview production build
+- `npm run preview` - Preview production build locally
 
-## API Endpoints
+## Common Troubleshooting
 
-### GET /api/layoutJS
+### Database Connection Error
 
-Returns hierarchical layout data.
+**Symptom**: `Error: database "orgchart_db" does not exist`
 
-**Response:**
-```json
-[
-  {
-    "id": "Diagram",
-    "parentId": null,
-    "label": "Diagram"
-  },
-  {
-    "id": "Layout",
-    "parentId": "Diagram",
-    "label": "layout"
-  }
-  // ... more nodes
-]
-```
-
-## Troubleshooting
-
-### Backend Issues
-
-#### Port 5000 Already in Use
-```bash
-# Windows - Find and kill process
-netstat -ano | findstr :5000
-taskkill /PID <process_id> /F
-
-# Mac/Linux
-lsof -i :5000
-kill -9 <process_id>
-```
-
-Or change the port in `server/.env`:
-```env
-PORT=5001
-```
-And update the API URL in `client/src/services/layoutService.ts`.
-
-#### Database Connection Failed
-
-1. Verify PostgreSQL is running:
-   ```bash
-   # Windows
-   services.msc  # Look for PostgreSQL service
-   
-   # Mac
-   brew services list
-   
-   # Linux
-   sudo systemctl status postgresql
-   ```
-
-2. Check credentials in `server/.env`
-
-3. Ensure database exists:
+**Solution**:
+1. Verify PostgreSQL is running
+2. Create the database using pgAdmin or psql:
    ```sql
-   \l  -- List all databases in psql
+   CREATE DATABASE orgchart_db;
    ```
+3. Restart the backend server
 
-### Frontend Issues
+### PostgreSQL Password Authentication Failed
 
-#### CORS Errors
+**Symptom**: `Error: password authentication failed for user "postgres"`
 
-Ensure the backend CORS configuration in `server/src/server.ts` matches your frontend URL:
-```typescript
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
-```
+**Solution**:
+1. Verify the password in `server/.env` matches your PostgreSQL password
+2. Update the password if needed:
+   ```env
+   DB_PASSWORD=correct_password
+   ```
+3. Restart the backend server
 
-#### Diagram Not Rendering
+### CORS Blocking API Requests
 
-1. Check browser console for errors
-2. Verify Syncfusion CSS is imported in `src/index.css`
-3. Ensure data is being fetched (check Network tab)
-4. Verify backend is running and returning data
+**Symptom**: Browser console error: `Access to fetch has been blocked by CORS policy`
 
-#### Empty Diagram
+**Solution**:
+1. Verify backend CORS configuration in `server/src/server.ts` includes your frontend port
+2. Ensure both servers are running
+3. Check that the API URL in `client/src/services/layoutService.ts` is correct: `http://localhost:5000/api/layoutJS`
 
-1. Check if seed script ran successfully
-2. Verify API returns data: http://localhost:5000/api/layoutJS
-3. Check browser console for errors
+### Empty Diagram Display
 
-### Build Issues
+**Symptom**: Page loads but diagram shows no nodes
 
-#### TypeScript Errors
+**Solution**:
+1. Check if the seed script ran successfully
+2. Verify API returns data:
+   ```powershell
+   Invoke-WebRequest -Uri http://localhost:5000/api/layoutJS
+   ```
+3. Open browser developer tools (F12) → Console tab and check for errors
+4. Verify both backend and frontend servers are running
 
-Run type checking:
-```bash
-# Backend
-cd server
-npx tsc --noEmit
+### Port Already in Use
 
-# Frontend
-cd client
-npx tsc --noEmit
-```
+**Symptom**: `Error: listen EADDRINUSE: address already in use :::5000`
 
-## Database Schema
-
-### Table: hierarchicallayout
-
-| Column | Type | Description |
-|--------|------|-------------|
-| id | TEXT | Primary key - unique node identifier |
-| parentId | TEXT | Foreign key to parent node (nullable for root) |
-| label | TEXT | Display label for the node |
-
-**Indexes:**
-- PRIMARY KEY on `id`
-- INDEX on `parentId` for performance
-
-## Extension Ideas
-
-- 🔧 **CRUD Operations** - Add, edit, delete nodes
-- 🎨 **Custom Styling** - Node colors, shapes, sizes
-- 💾 **Export** - Save diagram as image (PNG, SVG)
-- 🔍 **Search** - Find and highlight nodes
-- 📱 **Responsive Design** - Mobile-friendly layout
-- 🔐 **Authentication** - User login and permissions
-- 📊 **Analytics** - Track diagram interactions
-- 🌙 **Dark Mode** - Theme switcher
-
-## Dependencies
-
-### Frontend Dependencies
-```json
-{
-  "@syncfusion/ej2-react-diagrams": "^latest",
-  "@syncfusion/ej2-data": "^latest",
-  "@syncfusion/ej2-base": "^latest",
-  "react": "^18.x",
-  "react-dom": "^18.x"
-}
-```
-
-### Backend Dependencies
-```json
-{
-  "express": "^4.x",
-  "pg": "^8.x",
-  "cors": "^2.x",
-  "dotenv": "^16.x"
-}
-```
-
-## License
-
-This project is a sample application for educational purposes.
-
-## Support
-
-For Syncfusion component support, visit:
-- [Documentation](https://ej2.syncfusion.com/react/documentation/diagram/getting-started/)
-- [API Reference](https://ej2.syncfusion.com/react/documentation/api/diagram/)
-- [Support Forum](https://www.syncfusion.com/forums)
+**Solution**:
+1. Find and terminate the process using the port:
+   ```powershell
+   Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess
+   Stop-Process -Id <process_id> -Force
+   ```
+2. Or change the port in `server/.env`:
+   ```env
+   PORT=5001
+   ```
+   And update the API URL in `client/src/services/layoutService.ts`
 
 ---
 
-**Built with ❤️ using Syncfusion EJ2 React Diagrams**
+**For detailed setup and implementation guide, refer to `NewUserGuide.md`**

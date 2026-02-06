@@ -1,14 +1,14 @@
 import './App.css';
-import DiagramHierarchicalLayout from './components/DiagramHierarchicalLayout';
+import DiagramOrgchartLayout from './components/DiagramOrgchartLayout';
 
 function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>Syncfusion React Diagram - Hierarchical Tree Layout</h1>
+        <h1>Syncfusion React Diagram - Organizational chart Layout</h1>
       </header>
       <main className="app-main">
-        <DiagramHierarchicalLayout />
+        <DiagramOrgchartLayout />
       </main>
     </div>
   );

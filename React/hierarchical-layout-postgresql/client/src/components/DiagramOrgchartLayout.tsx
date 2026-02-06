@@ -11,7 +11,7 @@ import { DataManager } from '@syncfusion/ej2-data';
 import type { LayoutNode } from '../types/layout.types';
 import { fetchLayoutData } from '../services/layoutService';
 
-const DiagramHierarchicalLayout = () => {
+const DiagramOrgchartLayout = () => {
   const [data, setData] = useState<LayoutNode[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,11 +77,11 @@ const DiagramHierarchicalLayout = () => {
         height="100%"
         dataSourceSettings={{
           id: 'id',
-          parentId: 'parentId',
+          parentId: 'parent_id',
           dataSource: new DataManager(data)
         }}
         layout={{
-          type: 'HierarchicalTree',
+          type: 'OrganizationalChart',
           horizontalSpacing: 50,
           verticalSpacing: 50
         }}
@@ -91,7 +91,7 @@ const DiagramHierarchicalLayout = () => {
           node.shape = { type: 'Basic', shape: 'Rectangle' };
           node.style = { fill: '#6BA5D7', strokeColor: '#6BA5D7' };
           node.annotations = [{
-            content: (node.data as LayoutNode).label,
+            content: (node.data as LayoutNode).role,
             style: { color: 'white' }
           }];
           return node;
@@ -113,4 +113,4 @@ const DiagramHierarchicalLayout = () => {
   );
 };
 
-export default DiagramHierarchicalLayout;
+export default DiagramOrgchartLayout;

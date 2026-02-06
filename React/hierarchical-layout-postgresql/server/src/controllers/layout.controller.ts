@@ -5,7 +5,7 @@ import { LayoutNode } from '../types/layout.types.js';
 export const getLayoutData = async (req: Request, res: Response): Promise<void> => {
   try {
     const result = await pool.query<LayoutNode>(
-      'SELECT id, "parentId", label FROM hierarchicallayout ORDER BY id'
+      'SELECT id, parent_id, role FROM orgchart_layout ORDER BY id'
     );
     
     res.json(result.rows);

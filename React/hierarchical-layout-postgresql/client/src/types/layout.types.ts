@@ -1,5 +1,5 @@
 export interface LayoutNode {
   id: string;
-  parentId: string | null;
-  label: string;
+  parent_id: string | null;
+  role: string;
 }

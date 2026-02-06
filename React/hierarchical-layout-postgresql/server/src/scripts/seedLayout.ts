@@ -19,16 +19,16 @@ const seedDatabase = async (): Promise<void> => {
 
     // Create table
     await client.query(`
-      DROP TABLE IF EXISTS hierarchicallayout;
+      DROP TABLE IF EXISTS orgchart_layout;
       
-      CREATE TABLE hierarchicallayout (
+      CREATE TABLE orgchart_layout (
         id TEXT PRIMARY KEY,
-        "parentId" TEXT,
-        label TEXT NOT NULL,
-        FOREIGN KEY ("parentId") REFERENCES hierarchicallayout(id) ON DELETE CASCADE
+        parent_id TEXT,
+        role TEXT NOT NULL,
+        FOREIGN KEY (parent_id) REFERENCES orgchart_layout(id) ON DELETE CASCADE
       );
       
-      CREATE INDEX idx_hierarchicallayout_parentid ON hierarchicallayout("parentId");
+      CREATE INDEX idx_orgchart_layout_parent_id ON orgchart_layout(parent_id);
     `);
     
     console.log('Table created successfully');
@@ -36,8 +36,8 @@ const seedDatabase = async (): Promise<void> => {
     // Insert seed data
     for (const node of seedData) {
       await client.query(
-        'INSERT INTO hierarchicallayout (id, "parentId", label) VALUES ($1, $2, $3)',
-        [node.id, node.parentId, node.label]
+        'INSERT INTO orgchart_layout (id, parent_id, role) VALUES ($1, $2, $3)',
+        [node.id, node.parent_id, node.role]
       );
     }
 

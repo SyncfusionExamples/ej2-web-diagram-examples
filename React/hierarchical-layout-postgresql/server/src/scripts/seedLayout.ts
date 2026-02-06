@@ -1,4 +1,6 @@
 import pool from '../db/index.js';
+import pkg from 'pg';
+const { Client } = pkg;
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -8,6 +10,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const seedDatabase = async (): Promise<void> => {
+  const dbName = process.env.DB_NAME || 'orgchart_db';
+  // 1. Create Database if it doesn't exist
+  const systemClient = new Client({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT || '5432'),
+    database: 'postgres', // Connect to default system DB
+  });
+
+  try {
+    await systemClient.connect();
+    const res = await systemClient.query(`SELECT 1 FROM pg_database WHERE datname = '${dbName}'`);
+    
+    if (res.rowCount === 0) {
+      console.log(`Database "${dbName}" not found. Creating...`);
+      await systemClient.query(`CREATE DATABASE ${dbName}`);
+      console.log(`Database "${dbName}" created successfully.`);
+    }
+  } catch (error) {
+    console.error('Error checking/creating database:', error);
+  } finally {
+    await systemClient.end();
+  }
+
+  // 2. Continue with table creation and seeding
   const client = await pool.connect();
   
   try {

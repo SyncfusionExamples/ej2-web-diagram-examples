@@ -70,36 +70,17 @@ project-root/
 
 ## Setup Instructions
 
-### Step 1: Create PostgreSQL Database
-
-Before running the application, create the PostgreSQL database:
-
-1. Open **pgAdmin 4** or **psql command line**
-2. Execute the following SQL command:
-
-```sql
-CREATE DATABASE orgchart_db;
-```
-
-### Step 2: Install Backend Dependencies
+### Step 1: Install Backend Dependencies
 
 Navigate to the server directory and install packages:
 
 ```powershell
-cd server
-npm install
+cd server; npm install
 ```
 
-This installs:
-- **express** - Web framework
-- **pg** - PostgreSQL client
-- **cors** - Cross-origin middleware
-- **dotenv** - Environment variable management
-- **typescript** and **tsx** - TypeScript support
+### Step 2: Configure Environment Variables
 
-### Step 3: Configure Environment Variables
-
-Create a `.env` file in the `server` directory with your PostgreSQL credentials:
+Create a `.env` file in the `server` directory. The application uses these settings to automatically manage your database.
 
 ```env
 DB_USER=postgres
@@ -111,21 +92,31 @@ PORT=5000
 NODE_ENV=development
 ```
 
-> **Important**: Replace `your_postgres_password` with your actual PostgreSQL password.
+> **Note**: Ensure the `DB_PASSWORD` matches your local PostgreSQL installation.
 
-### Step 4: Seed the Database
+### Step 3: Automatic Database Initialization & Seeding
 
-From the `server` directory, run the seed script to create the table and insert sample data:
+You **do not need to manually create the database**. The seeding script is designed to detect if the database exists and create it automatically.
+
+From the `server` directory, run:
 
 ```powershell
 npm run seed
 ```
 
+**What this script does:**
+1. **Database Discovery**: Connects to your PostgreSQL instance and checks for the database name specified in `.env`.
+2. **Auto-Provisioning**: If the database is missing, it creates it automatically.
+3. **Schema Definition**: Generates the required table structures and indexes.
+4. **Data Population**: Seeds the database with the hierarchical sample data from `layoutSeed.json`.
+
 Expected output:
 ```
+Database "orgchart_db" not found. Creating...
+Database "orgchart_db" created successfully.
 Starting database seeding...
 Table created successfully
-Successfully seeded 12 nodes
+Successfully seeded 18 nodes
 Database seeding completed!
 ```
 
@@ -206,17 +197,14 @@ You should see the organizational chart diagram rendered with data from PostgreS
 
 ## Common Troubleshooting
 
-### Database Connection Error
+### Database Creation/Connection Error
 
-**Symptom**: `Error: database "orgchart_db" does not exist`
+**Symptom**: `Error: database "orgchart_db" does not exist` or `Connection Refused`
 
 **Solution**:
-1. Verify PostgreSQL is running
-2. Create the database using pgAdmin or psql:
-   ```sql
-   CREATE DATABASE orgchart_db;
-   ```
-3. Restart the backend server
+1. **Verify Service**: Ensure the PostgreSQL service is running on your machine.
+2. **Check Permissions**: Ensure the `DB_USER` in `.env` has the `CREATEDB` privilege (default for the `postgres` user).
+3. **Run Seed**: Ensure you have run `npm run seed` at least once to initialize the environment.
 
 ### PostgreSQL Password Authentication Failed
 

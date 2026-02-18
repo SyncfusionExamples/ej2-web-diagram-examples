@@ -1,0 +1,222 @@
+/**
+ * App Styles
+ * Main layout and component styling
+ * 
+ * LAYOUT STRUCTURE:
+ * - app-container: Full viewport container
+ * - toolbar-region: Contains both banner and primary toolbar (no extra spacing)
+ * - content-region: Main workspace area
+ */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.toolbar-region {
+  flex-shrink: 0;
+  z-index: 100;
+  /* No extra padding or margin - toolbars handle their own spacing */
+}
+
+
+.content-region {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+
+/* ============================================
+   BOTTOM PROMOTIONAL BANNER
+   Compact full-width banner below diagram area
+   ============================================ */
+
+.bottom-banner {
+  flex-shrink: 0;
+  background: #003087;
+  color: white;
+  padding: 12px 20px;
+  z-index: 50;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.banner-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.banner-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-text {
+  flex-shrink: 0;
+}
+
+.banner-message {
+  font-size: 13px;
+  line-height: 1.4;
+  color: white;
+  white-space: nowrap;
+}
+
+.banner-message strong {
+  font-weight: 600;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.banner-btn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-btn-primary {
+  background-color: #ffd800;
+  color: #000;
+}
+
+.banner-btn-primary:hover {
+  background-color: #ffed4e;
+}
+
+.banner-btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 5px 17px;
+}
+
+.banner-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+/* Responsive banner */
+@media (max-width: 1200px) {
+  .banner-message {
+    font-size: 12px;
+  }
+  
+  .banner-btn {
+    font-size: 12px;
+    padding: 5px 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bottom-banner {
+    padding: 10px 12px;
+  }
+  
+  .banner-content {
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-x: auto;
+  }
+  
+  .banner-message {
+    white-space: normal;
+    font-size: 11px;
+  }
+}
+
+.symbol-palette-region {
+  width: 250px;
+  flex-shrink: 0;
+  border-right: 1px solid #e0e0e0;
+  background-color: #fff;
+  overflow: auto;
+}
+
+.diagram-region {
+  flex: 1;
+  position: relative;
+  background-color: #f8f9fa;
+  overflow: hidden;
+}
+
+.property-panel-region {
+  /* Fixed width to prevent right-side cutoff */
+  width: 340px;
+  flex-shrink: 0;  /* Prevent flex from shrinking the panel */
+  border-left: 1px solid #e0e0e0;
+  background-color: #fff;
+  /* Use overflow-y for vertical scroll, overflow-x hidden to prevent horizontal overflow */
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  /* Critical: box-sizing ensures padding is included in width calculation */
+  box-sizing: border-box;
+  /* Prevent content from overflowing horizontally */
+  max-width: 340px;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .symbol-palette-region {
+    width: 200px;
+  }
+  
+  .property-panel-region {
+    width: 320px;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-region {
+    flex-direction: column;
+  }
+  
+  .symbol-palette-region {
+    width: 100%;
+    height: 150px;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .property-panel-region {
+    width: 100%;
+    height: 200px;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+  }
+}

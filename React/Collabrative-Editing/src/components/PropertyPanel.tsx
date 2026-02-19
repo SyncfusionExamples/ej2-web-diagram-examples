@@ -8,7 +8,6 @@ import { NumericTextBoxComponent, SliderComponent } from '@syncfusion/ej2-react-
 import { ColorPickerComponent } from '@syncfusion/ej2-react-inputs';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
-import type { NodeModel } from '@syncfusion/ej2-react-diagrams';
 import type { NodeProperties, SelectedItem } from '../types/diagramTypes';
 
 interface PropertyPanelProps {
@@ -31,14 +30,18 @@ const getGradientDirection = (gradient: any): string => {
 export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelProps) => {
   const [properties, setProperties] = useState<NodeProperties | null>(null);
   const [showGradient, setShowGradient] = useState(false);
-
+  const [hasAnnotation, setHasAnnotation] = useState<boolean>(false);
   useEffect(() => {
     // Build properties object depending on selected item type
-    if (!selectedItem) {
+    if (!selectedItem || selectedItem.type !== 'node') {
       setProperties(null);
       setShowGradient(false);
+      setHasAnnotation(false);
       return;
     }
+    const node = selectedItem.node as any;
+    const hasAnnotations = node.annotations && node.annotations.length > 0;
+    setHasAnnotation(hasAnnotations);
 
     if (selectedItem.type === 'node') {
       const selectedNode = selectedItem.node;
@@ -58,7 +61,7 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
         width: (selectedNode.width as number) || 100,
         height: (selectedNode.height as number) || 100,
         rotateAngle: (selectedNode.rotateAngle as number) || 0,
-        aspectRatio: selectedNode.constraints ? ((selectedNode.constraints as any) & 0x00000020) !== 0 : false,
+        aspectRatio: selectedNode.constraints ? ((selectedNode.constraints as any)) !== 0 : false,
         fillColor: (selectedNode.style as any)?.fill || '#6BA5D7',
         isGradient: isGradient || false,
         gradientColor: isGradient ? gradient.stops[1].color : '#FFFFFF',
@@ -74,7 +77,8 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
         textAlign: textAlignValue as NodeProperties['textAlign'],
         bold: selectedNode.annotations?.[0]?.style?.bold || false,
         italic: selectedNode.annotations?.[0]?.style?.italic || false,
-        underline: selectedNode.annotations?.[0]?.style?.textDecoration === 'Underline'
+        underline: selectedNode.annotations?.[0]?.style?.textDecoration === 'Underline',
+        textOpacity: selectedNode.annotations?.[0]?.style?.opacity !== undefined ? (selectedNode.style as any).opacity : 1,
       };
       setProperties(nodeProps);
       setShowGradient(isGradient || false);
@@ -94,8 +98,8 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
       return;
     }
 
-    if (selectedItem.type === 'annotation') {
-      const ann = selectedItem.annotation as any;
+    if (selectedItem.type === 'node') {
+      const ann = selectedItem.node.annotation as any;
       const annProps: NodeProperties = {
         id: selectedItem.nodeId || '',
         text: ann.content || '',
@@ -154,375 +158,392 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h3 style={styles.headerTitle}>Properties</h3>
-      </div>
 
-      <div style={styles.content}>
-        {/* Dimensions - Matching Blazor Layout */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Dimensions</h4>
-          {/* X and Y in first row */}
-          <div style={styles.dimensionRow}>
-            <div style={styles.dimensionItem}>
-              <label style={styles.dimensionLabel}>X</label>
-              <NumericTextBoxComponent
-                value={properties.offsetX}
-                format="n0"
-                step={10}
-                showSpinButton={true}
-                change={(e) => handlePropertyUpdate('offsetX', e.value)}
-                width="100%"
-              />
+
+    <div style={styles.container} className='db-property-editor-container' >
+      <div >
+        <div className="db-node-behaviour-prop">
+          <div className="row db-prop-header-text">
+            Properties
+          </div>
+          <div className="db-prop-separator"></div>
+          <div className="db-prop-text-style">
+            Dimensions
+          </div>
+          <div className="db-prop-row">
+            <div style={{ paddingLeft: '0px', marginRight: '15px' }}>
+              <div className="db-text">
+                <span>X</span>
+              </div>
+              <div className="db-text-input">
+                <NumericTextBoxComponent
+                  value={properties.offsetX}
+                  format="n0"
+                  step={10}
+                  showSpinButton={true}
+                  change={(e) => handlePropertyUpdate('offsetX', e.value)}
+                  width="100%"
+                />
+              </div>
             </div>
-            <div style={styles.dimensionItem}>
-              <label style={styles.dimensionLabel}>Y</label>
-              <NumericTextBoxComponent
-                value={properties.offsetY}
-                format="n0"
-                step={10}
-                showSpinButton={true}
-                change={(e) => handlePropertyUpdate('offsetY', e.value)}
-                width="100%"
-              />
+            <div style={{ paddingLeft: '0px' }}>
+              <div className="db-text">
+                <span>Y</span>
+              </div>
+              <div className="db-text-input">
+                <NumericTextBoxComponent
+                  value={properties.offsetY}
+                  format="n0"
+                  step={10}
+                  showSpinButton={true}
+                  change={(e) => handlePropertyUpdate('offsetY', e.value)}
+                  width="100%"
+                />
+              </div>
+            </div>
+
+          </div>
+          <div className="db-prop-row">
+            <div style={{ paddingLeft: '0px', marginRight: '15px' }}>
+              <div>
+                <div className="db-text">
+                  <span>W</span>
+                </div>
+                <div className="db-text-input">
+                  <NumericTextBoxComponent
+                    value={properties.width}
+                    format="n0"
+                    min={10}
+                    step={10}
+                    showSpinButton={true}
+                    change={(e) => handlePropertyUpdate('width', e.value)}
+                    width="100%"
+                  />
+                </div>
+              </div>
+            </div>
+            <div style={{ paddingLeft: '0px', marginRight: '15px' }}>
+              <div>
+                <div className="db-text">
+                  <span>H</span>
+                </div>
+                <div className="db-text-input">
+                  <NumericTextBoxComponent
+                    value={properties.height}
+                    format="n0"
+                    min={10}
+                    step={10}
+                    showSpinButton={true}
+                    change={(e) => handlePropertyUpdate('height', e.value)}
+                    width="100%"
+                  />
+                </div>
+              </div>
+            </div>
+            <div style={{ paddingLeft: '0px' }}>
+              <div>
+                <div>
+                  <ButtonComponent id='aspectRatioBtn' ref={aspectRatio => (aspectRatio = aspectRatio)}
+                    cssClass={"e-aspectRatioBtn e-flat"} iconCss="sf-icon-unlock" isToggle={true}
+                    onClick={() => handlePropertyUpdate('aspectRatio', properties.aspectRatio)}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          {/* W, H, and Aspect Ratio button in second row */}
-          <div style={styles.dimensionRow}>
-            <div style={styles.dimensionItem}>
-              <label style={styles.dimensionLabel}>W</label>
-              <NumericTextBoxComponent
-                value={properties.width}
-                format="n0"
-                min={10}
-                step={10}
-                showSpinButton={true}
-                change={(e) => handlePropertyUpdate('width', e.value)}
-                width="100%"
-              />
+          <div className="db-prop-row">
+            <div className="col-xs-6 db-col-left" style={{ marginRight: "3px" }}>
+              <div>
+                <div className="db-text">
+                  <span>R</span>
+                </div>
+                <div className="db-text-input">
+                  <NumericTextBoxComponent
+                    value={properties.rotateAngle}
+                    format="n0"
+                    min={0}
+                    max={360}
+                    step={15}
+                    showSpinButton={true}
+                    change={(e) => handlePropertyUpdate('rotateAngle', e.value)}
+                    width="100%"
+                  />
+                </div>
+              </div>
             </div>
-            <div style={styles.dimensionItem}>
-              <label style={styles.dimensionLabel}>H</label>
-              <NumericTextBoxComponent
-                value={properties.height}
-                format="n0"
-                min={10}
-                step={10}
-                showSpinButton={true}
-                change={(e) => handlePropertyUpdate('height', e.value)}
-                width="100%"
-              />
-            </div>
-            <div style={styles.aspectRatioContainer}>
+          </div>
+          <div className="db-prop-separator"></div>
+          <div className="db-prop-text-style">
+            Insert
+          </div>
+          <div className="db-prop-row">
+            <div>
               <ButtonComponent
-                cssClass={properties.aspectRatio ? 'e-flat' : 'e-flat'}
-                iconCss={properties.aspectRatio ? 'e-icons e-lock' : 'e-icons e-unlock'}
-                title={properties.aspectRatio ? 'Disable Aspect Ratio' : 'Enable Aspect Ratio'}
-                onClick={() => handlePropertyUpdate('aspectRatio', !properties.aspectRatio)}
-              />
-            </div>
-          </div>
-          {/* R (Rotation) in third row */}
-          <div style={styles.dimensionRow}>
-            <div style={{ ...styles.dimensionItem, flex: '0 0 48%' }}>
-              <label style={styles.dimensionLabel}>R</label>
-              <NumericTextBoxComponent
-                value={properties.rotateAngle}
-                format="n0"
-                min={0}
-                max={360}
-                step={15}
-                showSpinButton={true}
-                change={(e) => handlePropertyUpdate('rotateAngle', e.value)}
-                width="100%"
-              />
-            </div>
-          </div>
-        </div>
+                cssClass="e-outline"
+                content="Insert Link"
+                iconCss="e-icons e-link"
 
-        {/* Insert Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Insert</h4>
-          <ButtonComponent
-            cssClass="e-outline"
-            content="Insert Link"
-            iconCss="e-icons e-link"
-            style={{ width: '100%' }}
-          />
-        </div>
-
-        {/* Background Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Background Type</h4>
-          <div style={styles.row}>
-            <div style={styles.comboRow}>
-              <DropDownListComponent
-                dataSource={['Solid', 'Gradient']}
-                value={properties.isGradient ? 'Gradient' : 'Solid'}
-                change={(e) => {
-                  const isGrad = e.value === 'Gradient';
-                  setShowGradient(isGrad);
-                  handlePropertyUpdate('isGradient', isGrad);
-                }}
-                width="60%"
-              />
-              <ColorPickerComponent
-                value={properties.fillColor}
-                change={(e) => handlePropertyUpdate('fillColor', e.currentValue.hex)}
-                mode="Palette"
-                showButtons={false}
-                cssClass="inline-color-picker"
               />
             </div>
           </div>
-          {/* Gradient Style Section - only shown when Gradient is selected */}
-          {showGradient && (
-            <div style={styles.gradientSection}>
-              <h4 style={styles.sectionTitle}>Gradient Style</h4>
-              <div style={styles.row}>
-                <div style={styles.comboRow}>
+          <div className="db-prop-separator"></div>
+          <div id='nodeStyleProperties' className="db-node-style-prop">
+            <div className="db-background-style">
+              <div className="db-prop-text-style">
+                Background Type
+              </div>
+              <div className="db-prop-row">
+                <div className="col-xs-6 db-col-left">
                   <DropDownListComponent
-                    dataSource={[
-                      { text: 'Bottom to Top', value: 'BottomToTop' },
-                      { text: 'Top to Bottom', value: 'TopToBottom' },
-                      { text: 'Right to Left', value: 'RightToLeft' },
-                      { text: 'Left to Right', value: 'LeftToRight' }
-                    ]}
-                    fields={{ text: 'text', value: 'value' }}
-                    value={properties.gradientDirection}
-                    change={(e) => handlePropertyUpdate('gradientDirection', e.value)}
+                    dataSource={['Solid', 'Gradient']}
+                    value={properties.isGradient ? 'Gradient' : 'Solid'}
+                    change={(e) => {
+                      const isGrad = e.value === 'Gradient';
+                      setShowGradient(isGrad);
+                      handlePropertyUpdate('isGradient', isGrad);
+                    }}
                     width="60%"
                   />
+
+                </div>
+                <div className="db-col-left" style={{ marginLeft: "10px" }}>
                   <ColorPickerComponent
-                    value={properties.gradientColor}
-                    change={(e) => handlePropertyUpdate('gradientColor', e.currentValue.hex)}
+                    value={properties.fillColor}
+                    change={(e) => handlePropertyUpdate('fillColor', e.currentValue.hex)}
                     mode="Palette"
                     showButtons={false}
                     cssClass="inline-color-picker"
                   />
                 </div>
               </div>
+
+              {showGradient && (
+                <div id='gradientStyleId'>
+                  <div className="db-prop-text-style">
+                    Gradient Style
+                  </div>
+                  <div className="col-xs-6 db-prop-row">
+                    <div className="db-col-left">
+                      <DropDownListComponent
+                        dataSource={[
+                          { text: 'Bottom to Top', value: 'BottomToTop' },
+                          { text: 'Top to Bottom', value: 'TopToBottom' },
+                          { text: 'Right to Left', value: 'RightToLeft' },
+                          { text: 'Left to Right', value: 'LeftToRight' }
+                        ]}
+                        fields={{ text: 'text', value: 'value' }}
+                        value={properties.gradientDirection}
+                        change={(e) => handlePropertyUpdate('gradientDirection', e.value)}
+                        width="60%"
+                      />
+                      <ColorPickerComponent
+                        value={properties.gradientColor}
+                        change={(e) => handlePropertyUpdate('gradientColor', e.currentValue.hex)}
+                        mode="Palette"
+                        showButtons={false}
+                        cssClass="inline-color-picker"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+
+
+
             </div>
+            <div className="db-border-style">
+              <div className="db-prop-text-style">
+                Border Type
+              </div>
+              <div className="db-prop-row">
+                <div className="col-xs-6 db-col-left">
+                  <DropDownListComponent
+                    dataSource={borderTypes}
+                    fields={{ text: 'text', value: 'value' }}
+                    value={properties.borderDashArray}
+                    change={(e) => handlePropertyUpdate('borderDashArray', e.value)}
+                    width="60%"
+                  />
+
+                </div>
+                <div className="db-col-left" style={{ marginLeft: "10px" }}>
+                  <ColorPickerComponent
+                    value={properties.strokeColor}
+                    change={(e) => handlePropertyUpdate('strokeColor', e.currentValue.hex)}
+                    mode="Palette"
+                    showButtons={false}
+                    cssClass="inline-color-picker"
+                  />
+                </div>
+              </div>
+              <div className="db-prop-text-style">
+                Thickness
+              </div>
+              <div className="db-prop-row">
+                <div className="col-xs-6 db-col-left">
+                  <NumericTextBoxComponent
+                    value={properties.strokeWidth}
+                    format="n0"
+                    min={0}
+                    max={20}
+                    step={1}
+                    showSpinButton={true}
+                    change={(e) => handlePropertyUpdate('strokeWidth', e.value)}
+                    width="100%"
+                  />
+                </div>
+              </div>
+              <div className="db-prop-row">
+                <div className="db-prop-text-style" style={{ marginRight: "20px" }}>
+                  <span className="db-prop-text-style">Opacity</span>
+                </div>
+                <div className="col-xs-12" style={{ paddingRight: "0px !important", paddingLeft: "0px !important", marginTop: "5px" }}>
+                  <SliderComponent
+                    value={(properties.opacity || 1) * 100}
+                    min={0}
+                    max={100}
+                    step={10}
+                    type="MinRange"
+                    showButtons={false}
+                    tooltip={{ isVisible: true, placement: 'Before', showOn: 'Hover' }}
+                    change={(e) => handlePropertyUpdate('opacity', (e.value || 100) / 100)}
+                    width="100%"
+                  />
+                </div>
+                <div className="col-xs-2" style={{ marginTop: "5px", marginLeft: "17px", paddingLeft: "8px !important", paddingRight: "0px" }}>
+                  <input
+                    type="text"
+                    value={Math.round((properties.opacity || 1) * 100)}
+                    readOnly
+                    style={styles.opacityText}
+                  />
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+          {hasAnnotation && (
+            <>
+              <div id='textPropertyContainer' className="db-text-prop-container" >
+                <div className="db-prop-separator"></div>
+                <div className="db-prop-header-text">
+                  Text
+                </div>
+                <div className="db-prop-row">
+                  <div className="col-xs-6 db-col-left">
+                    <DropDownListComponent
+                      dataSource={fontFamilies}
+                      fields={{ text: 'text', value: 'value' }}
+                      value={properties.fontFamily || 'Arial'}
+                      change={(e) => handlePropertyUpdate('fontFamily', e.value)}
+                      width="100%"
+                    />
+                  </div>
+                  <div className="col-xs-4 db-col-right" style={{ marginLeft: "10px" }}>
+                    <NumericTextBoxComponent
+                      value={properties.fontSize}
+                      format="n2"
+                      min={8}
+                      max={72}
+                      step={2}
+                      showSpinButton={true}
+                      change={(e) => handlePropertyUpdate('fontSize', e.value)}
+                      width="100%"
+                    />
+                  </div>
+                </div>
+
+                <div className="db-prop-row">
+                  <div className="col-xs-6 db-col-left" id="textPositionDiv" style={{ marginRight: "10px" }}>
+                    <DropDownListComponent
+                      dataSource={['Center', 'Top', 'Bottom', 'Left', 'Right']}
+                      value="Center"
+                      width="100%"
+                    />
+                  </div>
+                  <div className="db-col-right" id="textColorDiv">
+                    <ColorPickerComponent
+                      value={properties.fontColor}
+                      change={(e) => handlePropertyUpdate('fontColor', e.currentValue.hex)}
+                      mode="Palette"
+                      showButtons={false}
+                    />
+                  </div>
+                </div>
+                <div className="db-prop-row" id='toolbarTextStyleDiv' style={{ paddingTop: "10px", justifyContent: "space-between" }}>
+                  <div style={{ marginLeft: "-8px" }}>
+                    <ButtonComponent
+                      cssClass={properties.bold ? 'e-flat e-small e-active' : 'e-flat e-small'}
+                      content="B"
+                      onClick={() => handlePropertyUpdate('bold', !properties.bold)}
+                      style={{ fontWeight: 'bold', minWidth: '32px' }}
+                    />
+                    <ButtonComponent
+                      cssClass={properties.italic ? 'e-flat e-small e-active' : 'e-flat e-small'}
+                      content="I"
+                      onClick={() => handlePropertyUpdate('italic', !properties.italic)}
+                      style={{ fontStyle: 'italic', minWidth: '32px' }}
+                    />
+                    <ButtonComponent
+                      cssClass={properties.underline ? 'e-flat e-small e-active' : 'e-flat e-small'}
+                      content="U"
+                      onClick={() => handlePropertyUpdate('underline', !properties.underline)}
+                      style={{ textDecoration: 'underline', minWidth: '32px' }}
+                    />
+                  </div>
+                </div>
+                <div id='toolbarTextAlignmentDiv' style={{ marginRight: "-8px", marginLeft: "-8px", paddingTop: "10px", justifyContent: "space-between" }}>
+                  <ButtonComponent
+                    cssClass="e-flat e-small"
+                    iconCss="e-icons e-arrow-left"
+                    style={{ minWidth: '32px' }}
+                  />
+                  <ButtonComponent
+                    cssClass="e-flat e-small e-active"
+                    iconCss="e-icons e-align-justify"
+                    style={{ minWidth: '32px' }}
+                  />
+                  <ButtonComponent
+                    cssClass="e-flat e-small"
+                    iconCss="e-icons e-arrow-right"
+                    style={{ minWidth: '32px' }}
+                  />
+                </div>
+                <div className="db-prop-row">
+                  <div className="db-prop-text-style" style={{ marginRight: "20px" }}>
+                    <span className="db-prop-text-style">Opacity</span>
+                  </div>
+                  <div className="col-xs-12" style={{ paddingRight: "0px !important", paddingLeft: "0px !important", marginTop: "5px" }}>
+                    <SliderComponent
+                      value={100}
+                      min={0}
+                      max={100}
+                      step={10}
+                      type="MinRange"
+                      showButtons={false}
+                      tooltip={{ isVisible: true, placement: 'Before', showOn: 'Hover' }}
+                      change={(e) => handlePropertyUpdate('textOpacity', (e.value || 100) / 100)}
+                      width="100%"
+                    />
+                  </div>
+                  <div className="col-xs-2" style={{ marginTop: "5px", marginLeft: " 17px", paddingLeft: "8px !important", paddingRight: "0px" }}>
+                    <input
+                      type="text"
+                      value={Math.round((properties.opacity || 1) * 100)}
+                      readOnly
+                      style={styles.opacityText}
+                    />
+                  </div>
+                </div>
+
+              </div>
+            </>
           )}
-        </div>
 
-        {/* Border Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Border Type</h4>
-          <div style={styles.row}>
-            <div style={styles.comboRow}>
-              <DropDownListComponent
-                dataSource={borderTypes}
-                fields={{ text: 'text', value: 'value' }}
-                value={properties.borderDashArray}
-                change={(e) => handlePropertyUpdate('borderDashArray', e.value)}
-                width="60%"
-              />
-              <ColorPickerComponent
-                value={properties.strokeColor}
-                change={(e) => handlePropertyUpdate('strokeColor', e.currentValue.hex)}
-                mode="Palette"
-                showButtons={false}
-                cssClass="inline-color-picker"
-              />
-            </div>
-          </div>
-        </div>
 
-        {/* Thickness Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Thickness</h4>
-          <div style={styles.row}>
-            <NumericTextBoxComponent
-              value={properties.strokeWidth}
-              format="n0"
-              min={0}
-              max={20}
-              step={1}
-              showSpinButton={true}
-              change={(e) => handlePropertyUpdate('strokeWidth', e.value)}
-              width="100%"
-            />
-          </div>
-        </div>
-
-        {/* Opacity Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Opacity</h4>
-          <div style={styles.opacityRow}>
-            <div style={{ flex: 1 }}>
-              <SliderComponent
-                value={(properties.opacity || 1) * 100}
-                min={0}
-                max={100}
-                step={10}
-                type="MinRange"
-                showButtons={false}
-                tooltip={{ isVisible: true, placement: 'Before', showOn: 'Hover' }}
-                change={(e) => handlePropertyUpdate('opacity', (e.value || 100) / 100)}
-                width="100%"
-              />
-            </div>
-            <input
-              type="text"
-              value={Math.round((properties.opacity || 1) * 100)}
-              readOnly
-              style={styles.opacityText}
-            />
-          </div>
-        </div>
-
-        {/* Text Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Text</h4>
-          {/* Row 1: Font dropdown and Size input */}
-          <div style={styles.textRow}>
-            <div style={{ flex: 1, marginRight: '5px' }}>
-              <DropDownListComponent
-                dataSource={fontFamilies}
-                fields={{ text: 'text', value: 'value' }}
-                value={properties.fontFamily|| 'Arial'}
-                change={(e) => handlePropertyUpdate('fontFamily', e.value)}
-                width="100%"
-              />
-            </div>
-            <div style={{ width: '100px' }}>
-              <NumericTextBoxComponent
-                value={properties.fontSize}
-                format="n2"
-                min={8}
-                max={72}
-                step={2}
-                showSpinButton={true}
-                change={(e) => handlePropertyUpdate('fontSize', e.value)}
-                width="100%"
-              />
-            </div>
-          </div>
-          {/* Row 2: Position dropdown and Color picker */}
-          <div style={styles.textRow}>
-            <div style={{ flex: 1, marginRight: '8px' }}>
-              <DropDownListComponent
-                dataSource={['Center', 'Top', 'Bottom', 'Left', 'Right']}
-                value="Center"
-                width="100%"
-              />
-            </div>
-            <div>
-              <ColorPickerComponent
-                value={properties.fontColor}
-                change={(e) => handlePropertyUpdate('fontColor', e.currentValue.hex)}
-                mode="Palette"
-                showButtons={false}
-              />
-            </div>
-          </div>
-          {/* Row 3: Format buttons (B, I, U) and Text Align buttons */}
-          <div style={styles.textRow}>
-            <div style={styles.buttonGroup}>
-              <ButtonComponent
-                cssClass={properties.bold ? 'e-flat e-small e-active' : 'e-flat e-small'}
-                content="B"
-                onClick={() => handlePropertyUpdate('bold', !properties.bold)}
-                style={{ fontWeight: 'bold', minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass={properties.italic ? 'e-flat e-small e-active' : 'e-flat e-small'}
-                content="I"
-                onClick={() => handlePropertyUpdate('italic', !properties.italic)}
-                style={{ fontStyle: 'italic', minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass={properties.underline ? 'e-flat e-small e-active' : 'e-flat e-small'}
-                content="U"
-                onClick={() => handlePropertyUpdate('underline', !properties.underline)}
-                style={{ textDecoration: 'underline', minWidth: '32px' }}
-              />
-            </div>
-            <div style={styles.buttonGroup}>
-              <ButtonComponent
-                cssClass={properties.textAlign === 'Left' ? 'e-flat e-small e-active' : 'e-flat e-small'}
-                iconCss="e-icons e-align-left"
-                onClick={() => handlePropertyUpdate('textAlign', 'Left')}
-                style={{ minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass={properties.textAlign === 'Center' ? 'e-flat e-small e-active' : 'e-flat e-small'}
-                iconCss="e-icons e-align-center"
-                onClick={() => handlePropertyUpdate('textAlign', 'Center')}
-                style={{ minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass={properties.textAlign === 'Right' ? 'e-flat e-small e-active' : 'e-flat e-small'}
-                iconCss="e-icons e-align-right"
-                onClick={() => handlePropertyUpdate('textAlign', 'Right')}
-                style={{ minWidth: '32px' }}
-              />
-            </div>
-          </div>
-          <div style={styles.row}>
-            <div style={styles.buttonGroup}>
-              <ButtonComponent
-                cssClass="e-flat e-small"
-                iconCss="e-icons e-arrow-left"
-                style={{ minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass="e-flat e-small e-active"
-                iconCss="e-icons e-align-justify"
-                style={{ minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass="e-flat e-small"
-                iconCss="e-icons e-arrow-right"
-                style={{ minWidth: '32px' }}
-              />
-            </div>
-            <div style={styles.buttonGroup}>
-              <ButtonComponent
-                cssClass="e-flat e-small"
-                iconCss="e-icons e-arrow-up"
-                style={{ minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass="e-flat e-small e-active"
-                iconCss="e-icons e-sort-descending"
-                style={{ minWidth: '32px' }}
-              />
-              <ButtonComponent
-                cssClass="e-flat e-small"
-                iconCss="e-icons e-arrow-down"
-                style={{ minWidth: '32px' }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Text Opacity Section */}
-        <div style={styles.section}>
-          <h4 style={styles.sectionTitle}>Opacity</h4>
-          <div style={styles.opacityRow}>
-            <div style={{ flex: 1 }}>
-              <SliderComponent
-                value={100}
-                min={0}
-                max={100}
-                step={10}
-                type="MinRange"
-                showButtons={false}
-                tooltip={{ isVisible: true, placement: 'Before', showOn: 'Hover' }}
-                change={(e) => handlePropertyUpdate('textOpacity', (e.value || 100) / 100)}
-                width="100%"
-              />
-            </div>
-            <input
-              type="text"
-              value={100}
-              readOnly
-              style={styles.opacityText}
-            />
-          </div>
         </div>
 
       </div>
@@ -533,27 +554,7 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
 // Inline styles
 const styles = {
   container: {
-    width: '350px',
-    minWidth: '320px',
-    height: '100%',
-    backgroundColor: '#fff',
-    borderLeft: '1px solid #e0e0e0',
-    display: 'flex',
-    flexDirection: 'column' as const,
-    overflow: 'hidden',
-    position: 'relative' as const
-  },
-  header: {
-    padding: '16px',
-    borderBottom: '1px solid #e0e0e0',
-    backgroundColor: '#f5f5f5',
-    flexShrink: 0
-  },
-  headerTitle: {
-    margin: 0,
-    fontSize: '16px',
-    fontWeight: 600,
-    color: '#333'
+    overflow: 'auto'
   },
   content: {
     flex: 1,
@@ -562,90 +563,6 @@ const styles = {
     padding: '16px',
     paddingRight: '20px',
     minHeight: 0
-  },
-  section: {
-    marginBottom: '10px'
-  },
-  sectionTitle: {
-    margin: '0 0 12px 0',
-    fontSize: '14px',
-    fontWeight: 600,
-    color: '#555',
-    borderBottom: '1px solid #e0e0e0',
-    paddingBottom: '8px'
-  },
-  row: {
-    marginBottom: '10px'
-  },
-  label: {
-    display: 'block',
-    marginBottom: '6px',
-    fontSize: '13px',
-    fontWeight: 500,
-    color: '#666'
-  },
-  textInput: {
-    width: '100%',
-    padding: '8px',
-    fontSize: '13px',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
-    boxSizing: 'border-box' as const
-  },
-  buttonGroup: {
-    display: 'flex',
-    gap: '4px'
-  },
-  dimensionGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
-    gap: '8px'
-  },
-  dimensionRow: {
-    display: 'flex',
-    gap: '8px',
-    marginBottom: '8px',
-    alignItems: 'flex-end'
-  },
-  dimensionItem: {
-    display: 'flex',
-    flexDirection: 'row' as const,
-    alignItems: 'center',
-    gap: '6px',
-    flex: '1 1 0'
-  },
-  dimensionLabel: {
-    fontSize: '12px',
-    fontWeight: 500,
-    color: '#666',
-    minWidth: '12px'
-  },
-  aspectRatioContainer: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    paddingBottom: '2px'
-  },
-  comboRow: {
-    display: 'flex',
-    gap: '3px',
-    alignItems: 'center',
-    paddingTop: '2px'
-  },
-  textRow: {
-    display: 'flex',
-    gap: '5px',
-    alignItems: 'center',
-    marginBottom: '8px'
-  },
-  gradientSection: {
-    marginTop: '12px',
-    paddingTop: '12px',
-    borderTop: '1px solid #e0e0e0'
-  },
-  opacityRow: {
-    display: 'flex',
-    gap: '10px',
-    alignItems: 'center'
   },
   opacityText: {
     width: '50px',

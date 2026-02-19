@@ -17,7 +17,8 @@ import {
     ITextEditEventArgs,
     DiagramConstraints,
     IExportOptions,
-    GridlinesModel, PrintAndExport, BpmnDiagrams
+    GridlinesModel, PrintAndExport, BpmnDiagrams,
+    NodeConstraints
 } from '@syncfusion/ej2-react-diagrams';
 import { collaborationService } from '../collaboration/CollaborationService';
 import type { ConnectorProperties, DiagramState, NodeProperties, SelectedItem } from '../types/diagramTypes';
@@ -431,6 +432,26 @@ export const DiagramEditor = forwardRef<DiagramEditorRef, DiagramEditorProps>(
                 if (properties.offsetY !== undefined) node.offsetY = properties.offsetY;
                 if (properties.width !== undefined) node.width = properties.width;
                 if (properties.height !== undefined) node.height = properties.height;
+                if (properties.aspectRatio !== undefined) {
+                    var isAspect: boolean = true;
+                    let aspectRatioBtn: any = (document.getElementById('aspectRatioBtn') as any).ej2_instances[0];
+                    if (node.constraints & NodeConstraints.AspectRatio) {
+                        aspectRatioBtn.iconCss = 'sf-icon-lock';
+                        document.getElementById('aspectRatioBtn').classList.add('e-active');
+                    } else {
+                        aspectRatioBtn.iconCss = 'sf-icon-unlock';
+                        document.getElementById('aspectRatioBtn').classList.remove('e-active');
+                    }
+                    if ((document.getElementById('aspectRatioBtn') as HTMLElement).classList.contains('e-active')) {
+                        isAspect = true;
+                        aspectRatioBtn.iconCss = 'sf-icon-lock'
+                    }
+                    else {
+                        isAspect = false;
+                        aspectRatioBtn.iconCss = 'sf-icon-unlock';
+                    }
+                    node.constraints = properties.constraints ^ NodeConstraints.AspectRatio;
+                }
 
                 // Update style properties
                 if (properties.fillColor !== undefined || properties.strokeColor !== undefined ||

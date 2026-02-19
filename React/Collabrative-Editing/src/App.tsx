@@ -13,6 +13,8 @@ import { type NodeModel, type ConnectorModel, NodeConstraints, ConnectorConstrai
 import type { ToolbarAction, NodeProperties, ConnectorProperties, SelectedItem } from './types/diagramTypes';
 import { ConnectorPropertyPanel } from './components/ConnectorPropertyPanel';
 import './App.css';
+import './assets/dbstyle/diagrambuilder.css'
+
 // Selection type for property panel
 type SelectionType = 'none' | 'node' | 'connector' | 'annotation' | 'multiple';
 
@@ -253,6 +255,7 @@ function App() {
   const handleSelectionChange = (selected?: SelectedItem | null) => {
     // If caller provided selection info (DiagramEditor), use it
     if (selected) {
+      
       switch (selected.type) {
         case 'node':
           setSelectedNode(selected.node as NodeModel);
@@ -486,7 +489,7 @@ function App() {
         {/* Right: Property Panel */}
         {/* Right: Property Panel - Only visible when node is selected */}
         {selectionState.type === 'node' && selectedItemForPanel && (
-          <div className="property-panel-region">
+          <div className="property-panel-region" id='nodePropertyContainer'>
             <PropertyPanel
               selectedItem={selectedItemForPanel}
               onPropertyChange={handlePropertyChange}
@@ -496,7 +499,7 @@ function App() {
 
         {/* Right: Connector Property Panel - Only visible when connector is selected */}
         {selectionState.type === 'connector' && selectedConnector && (
-          <div className="property-panel-region">
+          <div className="property-panel-region" id='connectorPropertyContainer'>
             <ConnectorPropertyPanel
               selectedConnector={{ type: 'connector', connector: selectedConnector }}
               onPropertyChange={handleConnectorPropertyChange}

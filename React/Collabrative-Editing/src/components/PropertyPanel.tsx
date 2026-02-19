@@ -348,9 +348,6 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
                 </div>
               )}
 
-
-
-
             </div>
             <div className="db-border-style">
               <div className="db-prop-text-style">
@@ -542,8 +539,6 @@ export const PropertyPanel = ({ selectedItem, onPropertyChange }: PropertyPanelP
               </div>
             </>
           )}
-
-
         </div>
 
       </div>

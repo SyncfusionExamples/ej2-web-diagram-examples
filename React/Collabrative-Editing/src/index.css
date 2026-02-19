@@ -144,3 +144,85 @@ code {
     font-weight: normal;
     font-style: normal;
   }
+
+  /*! button theme */
+.e-btn,
+.e-css.e-btn {
+  -webkit-tap-highlight-color: transparent;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.e-btn:focus,
+.e-css.e-btn:focus {
+  background-color: rgba(0, 0, 0, 0.18);
+  border-color: transparent;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.87);
+  outline: #fafafa 0 solid;
+  outline-offset: 0;
+}
+
+.e-btn.e-active,
+.e-css.e-btn.e-active {
+  background-color: rgba(184, 184, 184, 0.9584);
+  border-color: transparent;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.87);
+}
+.e-btn.e-flat,
+.e-css.e-btn.e-flat {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.e-btn.e-flat:hover,
+.e-css.e-btn.e-flat:hover {
+  background-color: rgba(0, 0, 0, 0.0348);
+  border-color: transparent;
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.e-btn.e-flat:focus,
+.e-css.e-btn.e-flat:focus {
+  background-color: rgba(0, 0, 0, 0.1044);
+  border-color: transparent;
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.e-btn.e-flat:active, .e-btn.e-flat.e-active,
+.e-css.e-btn.e-flat:active,
+.e-css.e-btn.e-flat.e-active {
+  background-color: rgba(0, 0, 0, 0.2088);
+  border-color: transparent;
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.e-checkbox-wrapper .e-label,
+.e-css.e-checkbox-wrapper .e-label {
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Roboto", "Segoe UI", "GeezaPro", "DejaVu Serif", "sans-serif", "-apple-system", "BlinkMacSystemFont";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  user-select: none;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.e-icons {
+  font-family: 'e-icons';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  speak: none;
+  text-transform: none;
+}

@@ -134,7 +134,7 @@
   .banner-message {
     font-size: 12px;
   }
-  
+
   .banner-btn {
     font-size: 12px;
     padding: 5px 14px;
@@ -145,13 +145,13 @@
   .bottom-banner {
     padding: 10px 12px;
   }
-  
+
   .banner-content {
     justify-content: flex-start;
     gap: 10px;
     overflow-x: auto;
   }
-  
+
   .banner-message {
     white-space: normal;
     font-size: 11px;
@@ -176,7 +176,8 @@
 .property-panel-region {
   /* Fixed width to prevent right-side cutoff */
   width: 340px;
-  flex-shrink: 0;  /* Prevent flex from shrinking the panel */
+  flex-shrink: 0;
+  /* Prevent flex from shrinking the panel */
   border-left: 1px solid #e0e0e0;
   background-color: #fff;
   /* Use overflow-y for vertical scroll, overflow-x hidden to prevent horizontal overflow */
@@ -194,7 +195,7 @@
   .symbol-palette-region {
     width: 200px;
   }
-  
+
   .property-panel-region {
     width: 320px;
     max-width: 320px;
@@ -205,18 +206,28 @@
   .content-region {
     flex-direction: column;
   }
-  
+
   .symbol-palette-region {
     width: 100%;
     height: 150px;
     border-right: none;
     border-bottom: 1px solid #e0e0e0;
   }
-  
+
   .property-panel-region {
     width: 100%;
     height: 200px;
     border-left: none;
     border-top: 1px solid #e0e0e0;
   }
+}
+
+.db-property-editor-container  {
+  width: 350px;
+  height: 100%;
+  float: left;
+  padding: 10px;
+  overflow: auto;
+  border-left: 1px solid rgb(203, 203, 203);
+  border-top: 1px solid rgb(203, 203, 203);
 }

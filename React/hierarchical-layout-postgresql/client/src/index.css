@@ -1,0 +1,6 @@
+
+/* Import Material theme base styles */
+@import '@syncfusion/ej2-base/styles/material.css';
+
+/* Import Diagram component-specific styles */
+@import '@syncfusion/ej2-react-diagrams/styles/material.css';

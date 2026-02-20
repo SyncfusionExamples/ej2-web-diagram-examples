@@ -1,6 +1,6 @@
 import type { LayoutNode } from '../types/layout.types';
 
-const API_URL = 'http://localhost:5000/api/layoutJS';
+const API_URL = 'http://localhost:5000/api/layout';
 
 export const fetchLayoutData = async (): Promise<LayoutNode[]> => {
   const response = await fetch(API_URL);

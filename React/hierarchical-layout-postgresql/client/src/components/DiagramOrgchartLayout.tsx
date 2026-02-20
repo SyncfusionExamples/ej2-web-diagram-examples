@@ -12,19 +12,25 @@ import type { LayoutNode } from '../types/layout.types';
 import { fetchLayoutData } from '../services/layoutService';
 
 const DiagramOrgchartLayout = () => {
+  // State management for data, loading, and error states
   const [data, setData] = useState<LayoutNode[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch data when component mounts
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
+        // Call service layer to fetch data from backend
         const layoutData = await fetchLayoutData();
         setData(layoutData);
         setError(null);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Failed to load diagram data';
+        // Handle fetch errors gracefully
+        const errorMessage = err instanceof Error 
+          ? err.message 
+          : 'Failed to load diagram data';
         setError(errorMessage);
         console.error('Error loading layout data:', err);
       } finally {
@@ -33,83 +39,73 @@ const DiagramOrgchartLayout = () => {
     };
 
     loadData();
-  }, []);
+  }, []); // Empty dependency array - runs once on mount
 
+  // Show loading message while fetching data
   if (loading) {
-    return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        fontSize: '18px',
-        color: '#666'
-      }}>
-        Loading diagram...
-      </div>
-    );
+    return <div>Loading diagram...</div>;
   }
 
+  // Show error message if fetch failed
   if (error) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        color: '#d32f2f'
-      }}>
+      <div>
         <h3>Error Loading Diagram</h3>
         <p>{error}</p>
-        <p style={{ fontSize: '14px', color: '#666' }}>
-          Please ensure the backend server is running on http://localhost:5000
-        </p>
       </div>
     );
   }
 
+  // Render diagram once data is loaded
   return (
-    <div style={{ width: '100%', height: '700px' }}>
-      <DiagramComponent
-        id="diagram"
-        width="100%"
-        height="100%"
-        dataSourceSettings={{
-          id: 'id',
-          parentId: 'parent_id',
-          dataSource: new DataManager(data)
-        }}
-        layout={{
-          type: 'OrganizationalChart',
-          horizontalSpacing: 50,
-          verticalSpacing: 50
-        }}
-        getNodeDefaults={(node: Node) => {
-          node.width = 100;
-          node.height = 40;
-          node.shape = { type: 'Basic', shape: 'Rectangle' };
-          node.style = { fill: '#6BA5D7', strokeColor: '#6BA5D7' };
-          node.annotations = [{
-            content: (node.data as LayoutNode).role,
-            style: { color: 'white' }
-          }];
-          return node;
-        }}
-        getConnectorDefaults={(connector: Connector) => {
-          connector.type = 'Orthogonal';
-          connector.targetDecorator = {
-            shape: 'Arrow',
-            width: 10,
-            height: 10
-          };
-          connector.style = { strokeColor: '#6BA5D7' };
-          return connector;
-        }}
-      >
-        <Inject services={[HierarchicalTree, DataBinding]} />
-      </DiagramComponent>
-    </div>
+    <DiagramComponent
+      id="diagram"
+      width="100%"
+      height="700px"
+      
+      // Data binding configuration
+      dataSourceSettings={{
+        id: 'id',                           // Field name for unique identifier
+        parentId: 'parent_id',              // Field name for parent reference
+        dataSource: new DataManager(data)   // Wrap data with `DataManager`
+      }}
+      
+      // Layout algorithm configuration
+      layout={{
+        type: 'OrganizationalChart',  // Use org chart layout
+        horizontalSpacing: 50,        // Horizontal gap between nodes
+        verticalSpacing: 50           // Vertical gap between levels
+      }}
+      
+      // Customize default node appearance
+      getNodeDefaults={(node: Node) => {
+        node.width = 100;
+        node.height = 40;
+        node.shape = { type: 'Basic', shape: 'Rectangle' };
+        node.style = { fill: '#6BA5D7', strokeColor: '#6BA5D7' };
+        
+        // Add text annotation showing the role field
+        node.annotations = [{
+          content: (node.data as LayoutNode).role,
+          style: { color: 'white' }
+        }];
+        return node;
+      }}
+      
+      // Customize default connector appearance
+      getConnectorDefaults={(connector: Connector) => {
+        connector.type = 'Orthogonal';  // 90-degree angle connectors
+        connector.targetDecorator = { 
+          shape: 'Arrow', 
+          width: 10, 
+          height: 10 
+        };
+        connector.style = { strokeColor: '#6BA5D7' };
+        return connector;
+      }}
+    >
+      <Inject services={[HierarchicalTree, DataBinding]} />
+    </DiagramComponent>
   );
 };
 

@@ -1,5 +1,5 @@
 import './App.css';
-import DiagramOrgchartLayout from './components/DiagramOrgchartLayout';
+import OrganizationalLayout from './components/OrganizationalLayout';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <h1>Syncfusion React Diagram - Organizational chart Layout</h1>
       </header>
       <main className="app-main">
-        <DiagramOrgchartLayout />
+        <OrganizationalLayout />
       </main>
     </div>
   );

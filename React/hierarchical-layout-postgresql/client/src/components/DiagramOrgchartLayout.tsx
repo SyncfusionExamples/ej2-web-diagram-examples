@@ -11,7 +11,7 @@ import { DataManager } from '@syncfusion/ej2-data';
 import type { LayoutNode } from '../types/layout.types';
 import { fetchLayoutData } from '../services/layoutService';
 
-const DiagramOrgchartLayout = () => {
+const OrganizationalLayout = () => {
   // State management for data, loading, and error states
   const [data, setData] = useState<LayoutNode[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -109,4 +109,4 @@ const DiagramOrgchartLayout = () => {
   );
 };
 
-export default DiagramOrgchartLayout;
+export default OrganizationalLayout;

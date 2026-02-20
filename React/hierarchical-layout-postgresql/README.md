@@ -17,7 +17,7 @@ The application fetches organizational hierarchy data from a PostgreSQL database
 .
 ├── client/          # React frontend application
 │   ├── src/
-│   │   ├── components/    # DiagramOrgchartLayout component
+│   │   ├── components/    # OrganizationalLayout component
 │   │   ├── services/      # API service layer
 │   │   └── types/         # TypeScript type definitions
 │   └── package.json

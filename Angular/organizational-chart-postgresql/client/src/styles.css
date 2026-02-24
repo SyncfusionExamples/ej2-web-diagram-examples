@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+/* Import Material theme base styles */
+@import '@syncfusion/ej2-base/styles/material.css';
+
+/* Import Diagram component-specific styles */
+@import '@syncfusion/ej2-diagrams/styles/material.css';

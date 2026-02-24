@@ -79,26 +79,6 @@ This will:
 - Create the `org_chart_layout` table
 - Insert sample organizational hierarchy data
 
-### 4. Build the Project
-
-#### Build Server
-
-```bash
-cd server
-npm run build
-```
-
-This compiles the TypeScript code to JavaScript in the `dist` folder.
-
-#### Build Client
-
-```bash
-cd client
-npm run build
-```
-
-This creates an optimized production build in the `dist` folder.
-
 ## Running the Application
 
 

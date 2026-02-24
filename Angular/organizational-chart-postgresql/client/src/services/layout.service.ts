@@ -7,7 +7,7 @@ import { LayoutNode } from '../types/layout.types';
   providedIn: 'root'
 })
 export class LayoutService {
-  private readonly API_URL = 'http://localhost:5000/api/layoutJS';
+  private readonly API_URL = 'http://localhost:5000/api/layout';
 
   constructor(private http: HttpClient) {}
 

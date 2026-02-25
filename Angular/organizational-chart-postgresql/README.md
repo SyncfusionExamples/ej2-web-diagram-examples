@@ -27,7 +27,7 @@ The application fetches organizational hierarchy data from a PostgreSQL database
     │   ├── routes/        # API routes
     │   ├── db/            # Database connection
     │   ├── data/          # Seed data
-    │   ├── scripts/       # Database seeding script
+    │   ├── script/       # Database seeding script
     │   └── types/         # TypeScript type definitions
     └── package.json
 ```

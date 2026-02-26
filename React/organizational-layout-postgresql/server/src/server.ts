@@ -54,8 +54,15 @@ const startServer = async (): Promise<void> => {
       console.log(`✓ API endpoint: http://localhost:${PORT}/api/layout`);
     });
   } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);  // Exit with error code
+    // Validate required environment variables
+    if (!process.env.DB_USER || !process.env.DB_PASSWORD || !process.env.DB_HOST || !process.env.DB_PORT || !process.env.DB_NAME) {
+      console.error('❌ Missing required environment variables in .env file.');
+      console.error('Please check your .env file - ensure DB credentials and password are correct.');
+    } else {
+      console.error('❌ Failed to start server.');
+    }
+    console.error('Error details:', error);
+    process.exit(1);
   }
 };
 

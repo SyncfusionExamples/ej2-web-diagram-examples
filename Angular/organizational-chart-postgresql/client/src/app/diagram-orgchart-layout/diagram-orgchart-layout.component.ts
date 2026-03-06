@@ -80,9 +80,6 @@ export class DiagramOrgchartLayoutComponent implements OnInit {
   data: LayoutNode[] = [];
   loading = true;
   error: string | null = null;
-  
-  dataSourceSettings: any;
-  layout: any;
 
   constructor(private layoutService: LayoutService) {
     // Layout algorithm configuration

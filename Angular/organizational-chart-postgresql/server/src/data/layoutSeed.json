@@ -1,0 +1,20 @@
+[
+  { "id": "parent", "role": "Board" },
+  { "id": "1", "role": "General Manager", "parent_id": "parent" },
+  { "id": "2", "role": "Human Resource Manager", "parent_id": "1" },
+  { "id": "3", "role": "Trainers", "parent_id": "2" },
+  { "id": "4", "role": "Recruiting Team", "parent_id": "2" },
+  { "id": "5", "role": "Finance Asst. Manager", "parent_id": "2" },
+  { "id": "6", "role": "Design Manager", "parent_id": "1" },
+  { "id": "7", "role": "Design Supervisor", "parent_id": "6" },
+  { "id": "8", "role": "Development Supervisor", "parent_id": "6" },
+  { "id": "9", "role": "Drafting Supervisor", "parent_id": "6" },
+  { "id": "10", "role": "Operations Manager", "parent_id": "1" },
+  { "id": "11", "role": "Statistics Department", "parent_id": "10" },
+  { "id": "12", "role": "Logistics Department", "parent_id": "10" },
+  { "id": "16", "role": "Marketing Manager", "parent_id": "1" },
+  { "id": "17", "role": "Overseas Sales Manager", "parent_id": "16" },
+  { "id": "18", "role": "Petroleum Manager", "parent_id": "16" },
+  { "id": "20", "role": "Service Department Manager", "parent_id": "16" },
+  { "id": "21", "role": "Quality Control Department", "parent_id": "16" }
+]

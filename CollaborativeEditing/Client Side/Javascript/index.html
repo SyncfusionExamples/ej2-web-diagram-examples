@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syncfusion EJ2 Diagram - Collaborative Editing</title>
+    
+    <!-- Syncfusion EJ2 CSS -->
+    <link href="https://cdn.syncfusion.com/ej2/33.1.44/material.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left {
+            flex: 1;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .header-right {
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-indicator {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 5px 12px;
+            border-radius: 4px;
+        }
+        
+        .content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        #palette-container {
+            width: 300px;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #diagram-container {
+            flex: 1;
+            display: flex;
+        }
+        
+        .e-symbolpalette {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #palette-container .e-symbolpalette {
+            border-right: 1px solid #e0e0e0;
+        }
+        
+        #diagram-container .e-diagram {
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            #palette-container {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                max-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🎨 Collaborative Editing</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-indicator">
+                    Available Users: <span id="user-count">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div id="palette-container"></div>
+            <div id="diagram-container"></div>
+        </div>
+    </div>
+    
+    <!-- Syncfusion EJ2 Scripts -->
+    <script src="https://cdn.syncfusion.com/ej2/33.1.44/dist/ej2.min.js"></script>
+    
+    <!-- SignalR Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script>
+    
+    <!-- Application Script -->
+    <script src="diagram.js"></script>
+</body>
+</html>

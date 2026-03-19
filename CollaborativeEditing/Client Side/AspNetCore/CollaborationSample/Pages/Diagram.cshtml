@@ -1,0 +1,98 @@
+@page
+@model CollaborationSample.Pages.DiagramModel
+@{
+    ViewData["Title"] = "Collaborative Diagram";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/33.1.44/dist/ej2.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            gap: 0;
+        }
+
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+
+        .diagram-header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .diagram-content {
+            display: flex;
+            gap: 0;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .palette-container {
+            width: 230px;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .diagram-canvas {
+            flex: 1;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        #user-count {
+            font-weight: bold;
+            color: #357BD2;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <div class="diagram-header">
+            <h1>Syncfusion EJ2 Diagram - Collaborative Editing</h1>
+            <div class="user-info">
+                <span>Connected Users: <span id="user-count">1</span></span>
+            </div>
+        </div>
+
+        <div class="diagram-content">
+            <div id="palette-container" class="palette-container"></div>
+            <div id="diagram-container" class="diagram-canvas"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script>
+    <script src="https://cdn.syncfusion.com/ej2/33.1.44/dist/ej2.min.js"></script>
+    <script src="~/js/diagram-client.js" asp-append-version="true"></script>
+</body>
+</html>

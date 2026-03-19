@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Collaborative Diagram Editor";
+}
+
+<div class="container-fluid" style="height: 100vh; display: flex; flex-direction: column;">
+    <!-- Header -->
+    <div class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-3">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Syncfusion EJ2 Collaborative Diagram</span>
+            <div class="ms-auto">
+                <span class="badge bg-success">Online Users: <span id="user-count">1</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex-grow-1 d-flex" style="overflow: hidden; gap: 0;">
+        <!-- Symbol Palette -->
+        <div id="palette-container" style="width: 250px; border-right: 1px solid #e0e0e0; overflow-y: auto;"></div>
+
+        <!-- Diagram Container -->
+        <div id="diagram-container" class="flex-grow-1" style="overflow: hidden;"></div>
+    </div>
+</div>
+
+<!-- EJ2 Dependencies -->
+<link href="~/css/ej2/bootstrap5.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script>
+<script src="~/js/ej2/ej2.min.js"></script>
+
+<!-- Collaboration Script -->
+<script src="~/js/diagram-collaboration.js"></script>
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .e-diagram {
+        background: white;
+    }
+
+    .e-symbolpalette {
+        background: white;
+    }
+
+    #palette-container {
+        background: white;
+    }
+
+    #diagram-container {
+        background: white;
+    }
+</style>

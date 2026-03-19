@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Collaborative Diagram Editor";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/ej2/bootstrap5.css" />
+</head>
+<body style="margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column;">
+    <header>
+        <nav class="navbar navbar-light bg-white border-bottom box-shadow" style="padding: 0.5rem 1rem;">
+            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                <span class="navbar-brand mb-0 h5" style="margin: 0;">Syncfusion EJ2 Collaborative Diagram</span>
+                <span class="badge bg-success">Online Users: <span id="user-count">1</span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main role="main" style="flex: 1; overflow: hidden; display: flex; gap: 0;">
+        <!-- Symbol Palette -->
+        <div id="palette-container" style="width: 250px; border-right: 1px solid #e0e0e0; overflow-y: auto;"></div>
+        
+        <!-- Diagram Container -->
+        <div id="diagram-container" style="flex: 1; overflow: hidden;"></div>
+    </main>
+
+    <!-- EJ2 Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script>
+    <script src="~/js/ej2/ej2.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Collaboration Script -->
+    <script src="~/js/diagram-collaboration.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,29 @@
+{
+  "name": "ej2-collaborative-diagram",
+  "version": "1.0.0",
+  "description": "Syncfusion EJ2 Collaborative Editing Diagram Sample",
+  "main": "script.js",
+  "scripts": {
+    "start": "http-server",
+    "dev": "http-server"
+  },
+  "keywords": [
+    "ej2",
+    "diagram",
+    "collaborative",
+    "syncfusion"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@syncfusion/ej2-diagrams": "33.1.44",
+    "@syncfusion/ej2-base": "33.1.44",
+    "@syncfusion/ej2-inputs": "33.1.44",
+    "@syncfusion/ej2-buttons": "33.1.44",
+    "@syncfusion/ej2-popups": "33.1.44",
+    "@microsoft/signalr": "10.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

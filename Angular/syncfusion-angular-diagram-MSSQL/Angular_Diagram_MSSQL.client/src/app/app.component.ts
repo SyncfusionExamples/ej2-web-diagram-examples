@@ -1,7 +1,7 @@
 
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DiagramComponent, Diagram, NodeModel, ConnectorModel, LayoutModel, DataSourceModel, DiagramModule,
-  HierarchicalTreeService, DataBindingService, DataBinding, HierarchicalTree } from '@syncfusion/ej2-angular-diagrams';
+  HierarchicalTreeService, DataBindingService, DataBinding, HierarchicalTree, SnapSettingsModel, SnapConstraints } from '@syncfusion/ej2-angular-diagrams';
 import { DataManager, Query } from '@syncfusion/ej2-data';
 
 Diagram.Inject(DataBinding, HierarchicalTree);
@@ -19,7 +19,10 @@ const BASE_URL = "/api/layoutnodes";
 })
 export class AppComponent {
   @ViewChild('diagram') diagram?: DiagramComponent;
-
+  public snapSettings: SnapSettingsModel = {
+      // Display both Horizontal and Vertical gridlines
+      constraints:  SnapConstraints.None
+  };
   public items?: DataManager;
   public layout?: LayoutModel;
   public dataSourceSettings?: DataSourceModel;
@@ -41,18 +44,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.loadData();
-    //Uses layout to auto-arrange nodes on the Diagram page
-    this.layout = {
-      //Sets layout type
-      type: 'OrganizationalChart'
-    }
-
-    //Configures data source for Diagram
-    this.dataSourceSettings = {
-      id: 'id',
-      parentId: 'parentId',
-      dataSource: this.items
-    }
   }
 
   private loadData() {

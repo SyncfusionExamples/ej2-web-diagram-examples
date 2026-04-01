@@ -1,27 +1,31 @@
-# DiagramMssqlClient
+# Client — Angular_Diagram_MSSQL.client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
+Overview
+- Angular app demonstrating Syncfusion Diagram bound to server data via DataManager.
+- Main component: [`AppComponent`](Angular_Diagram_MSSQL.client/src/app/app.component.ts).
+- Template: [app.component.html](Angular_Diagram_MSSQL.client/src/app/app.component.html).
 
-## Development server
+Key files
+- Component: [`AppComponent`](Angular_Diagram_MSSQL.client/src/app/app.component.ts)
+- Template: [Angular_Diagram_MSSQL.client/src/app/app.component.html](Angular_Diagram_MSSQL.client/src/app/app.component.html)
+- Config: [package.json](Angular_Diagram_MSSQL.client/package.json), [angular.json](Angular_Diagram_MSSQL.client/angular.json)
+- Proxy (if used): [proxy.conf.js](Angular_Diagram_MSSQL.client/src/proxy.conf.js)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+How it fetches data
+- The client uses the constant [`BASE_URL`](Angular_Diagram_MSSQL.client/src/app/app.component.ts) set to "/api/layoutnodes" and fetches nodes on init. Data flows into a Syncfusion DataManager and is bound via [dataSourceSettings] in the component.
 
-## Code scaffolding
+Run locally
+1. Install deps:
+   - cd Angular_Diagram_MSSQL.client
+   - npm install
+2. Start dev server:
+   - npm run start
+   - Navigate to http://localhost:4200
+3. Build:
+   - npm run build
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Testing
+- Unit tests via Karma/Jasmine: npm run test
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Notes
+- Ensure server is running and accessible at the API path used by [`AppComponent`](Angular_Diagram_MSSQL.client/src/app/app.component.ts).

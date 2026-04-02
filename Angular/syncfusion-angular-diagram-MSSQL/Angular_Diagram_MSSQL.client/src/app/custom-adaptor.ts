@@ -1,4 +1,3 @@
-import { BatchChanges } from '@syncfusion/ej2-angular-grids';
 import {
   DataManager,
   UrlAdaptor,
@@ -26,7 +25,6 @@ export class CustomAdaptor extends UrlAdaptor {
   // The following CRUD methods are commented out for now, as only read is needed for diagram.
   // Uncomment and adjust as needed if CRUD is required in the future.
 
-  /*
   public override insert(dm: DataManager, data: DataResult) {
     return {
       url: `${dm.dataSource['insertUrl']}`,
@@ -55,18 +53,4 @@ export class CustomAdaptor extends UrlAdaptor {
       data: JSON.stringify({ key: keyValue }),
     };
   }
-
-  public override batchRequest(dm: DataManager, changes: BatchChanges) {
-    return {
-      url: `${dm.dataSource['batchUrl']}`,
-      type: 'POST',
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify({
-        added: changes.addedRecords,
-        changed: changes.changedRecords,
-        deleted: changes.deletedRecords,
-      }),
-    };
-  }
-  */
 }

@@ -1,9 +1,9 @@
-using react_Diagram_MSSQL.Server.Data;
+using React_Diagram_MSSQL.Server.Data;
 using Microsoft.AspNetCore.Mvc;
 using Syncfusion.EJ2.Base;
 using Newtonsoft.Json.Linq;
 
-namespace react_Diagram_MSSQL.Server.Controllers
+namespace React_Diagram_MSSQL.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

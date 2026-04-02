@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 
-namespace react_Diagram_MSSQL.Server.Data
+namespace React_Diagram_MSSQL.Server.Data
 {
     public class LayoutNodeRepository
     {

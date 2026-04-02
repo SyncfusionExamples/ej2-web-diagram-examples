@@ -1,4 +1,4 @@
-using react_Diagram_MSSQL.Server.Data;
+using React_Diagram_MSSQL.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
-@react_Diagram_MSSQL.Server_HostAddress = http://localhost:5239
+@React_Diagram_MSSQL.Server_HostAddress = http://localhost:5239
 
-GET {{react_Diagram_MSSQL.Server_HostAddress}}/weatherforecast/
+GET {{React_Diagram_MSSQL.Server_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

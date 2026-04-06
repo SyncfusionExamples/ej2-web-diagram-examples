@@ -1,0 +1,6 @@
+@DIAGRAM_MySQL.Server_HostAddress = http://localhost:5283
+
+GET {{DIAGRAM_MySQL.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

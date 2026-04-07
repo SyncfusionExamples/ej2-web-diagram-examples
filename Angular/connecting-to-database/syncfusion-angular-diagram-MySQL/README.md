@@ -1,111 +1,67 @@
-# Syncfusion Angular Diagram – MySQL DataSource Demo
+# Syncfusion Angular Diagram — MySQL Example
 
-This project demonstrates how to load **Syncfusion Angular Diagram** layout data from a **MySQL database** using a backend API.
+This project demonstrates how to load **Syncfusion Angular Diagram** layout data from a **MySQL database** via an ASP.NET Core backend.
 
-> ✅ Diagram data is loaded via `dataSourceSettings`  
-> ✅ MySQL → API → Angular flow
-
-***
+## Contents
+- Diagram_MySQL.Server/  — ASP.NET Core Web API (LINQ2DB)
+- diagram_mysql.client/  — Angular client using @syncfusion/ej2-angular-diagrams
+- Diagram_MySQL.Server/setup-database.sql — DB schema & seed
 
 ## Prerequisites
+- MySQL server
+- .NET SDK 10
+- Node.js 18/20+ and npm
+- Angular CLI
+- (Optional) Visual Studio / VS Code
 
-Make sure the following are installed:
-
-*   **Node.js**
-*   **Angular CLI**
-*   **MySQL Server**
-*   **.NET 10**
-
-***
-
-
-## Database Setup
-
-1.  Create a MySQL database:
-
-```sql
-CREATE DATABASE diagramdb;
-```
-
-2.  Create a table for diagram layout data:
-
-```sql
-CREATE TABLE diagram_data (
-  id INT PRIMARY KEY,
-  name VARCHAR(100),
-  parentId INT
-);
-```
-
-3.  Insert sample data:
-
-```sql
-INSERT INTO diagram_data (id, name, parentId) VALUES
-(1, 'CEO', NULL),
-(2, 'Manager', 1),
-(3, 'Developer', 2);
-```
-> You can simply copy paste the contents of `Diagram_MySQL.Server\setup-database.sql` into MySQL Command Line Client for quick data creation.
-
-***
-
-## Frontend Setup (Angular)
-
-1.  Navigate to frontend folder, Install Syncfusion Diagram and necessary angular packages:
-
+## Database: create and seed
+Run the provided SQL in Windows PowerShell / CMD:
 ```bash
-cd diagram_mysql.client
-npm install
+mysql -u root -p < "d:\web-diagram-examples\Angular\connecting-to-database\syncfusion-angular-diagram-MySQL\Diagram_MySQL.Server\setup-database.sql"
 ```
+or
 
-***
+You can copy paste the contents of `Diagram_MySQL.Server\setup-database.sql` into MySQL Command Line Client for quick data creation.
 
-## Backend Setup (ASP.NET Core)
+This creates `diagramdb` and the `employees` table (Id, Name, ParentId).
 
-1.  Navigate to backend folder:
-
+## Backend: configure & run
+1. Open `Diagram_MySQL.Server/appsettings.json` and set the `MySqlConn` connection string.
+2. Restore and run:
 ```bash
-cd Diagram_MySQL.Server
+   cd Diagram_MySQL.Server
+   dotnet restore
+   dotnet run
 ```
+Default API used in examples:
+GET http://localhost:5283/api/diagram/items
+(Port may differ — check the console output when running `dotnet run`.)
 
-2.  Update MySQL credentials in `appsettings.json`:
-
-```json
-  "ConnectionStrings": {
-  "MySqlConn": "Server=localhost;Port=3306;Database=diagramdb;User Id=root;Password=12345678;"
-},
-```
-
-3.  Start the backend server:
-
+## Frontend: install & run
+1. Open client folder:
 ```bash
-dotnet build
-dotnet run
+   cd diagram_mysql.client
 ```
 
-✅ Client App will get automatically hosted.
-
-***
-
-## How Data Is Loaded into the Diagram
-
-*   Angular service calls the backend API
-*   API fetches records from MySQL
-*   Diagram uses `dataSourceSettings` to automatically load the layout diagram from data:
-
-```ts
-dataSourceSettings = {
-  id: 'id',
-  parentId: 'parentId',
-  dataSource: diagramData
-};
+2. Install dependencies:
+```bash
+   npm install
 ```
 
-***
+3. The Angular app uses a DataManager with a UrlAdaptor pointing to the backend `/api/diagram/items` and binds via Diagram `dataSourceSettings` (id = Id, parentId = ParentId).
 
-## Reference
+## Key files
+- setup-database.sql — schema + seed
+- Diagram_MySQL.Server/Controllers/DiagramController.cs — returns [{ Id, ParentId, Name }]
+- Diagram_MySQL.Server/Data/AppDataConnection.cs — LINQ2DB connection
+- diagram_mysql.client/src/app/ — DiagramComponent with dataSourceSettings using DataManager
 
-🔗 Syncfusion Angular Diagram Documentations:-
-- [Hierarchical layout with datasource](https://ej2.syncfusion.com/angular/documentation/diagram/automatic-layout/hierarchical-layout#hierarchical-layout-with-datasource)
+## Notes / Troubleshooting
+- CORS: enable backend CORS for the client origin.
+- Ensure connection string credentials and MySQL port are correct.
+- Inspect network tab; endpoint must return JSON array of items with Id and ParentId.
 
-***
+## References
+- [Diagram hierarchical layout with datasource](https://ej2.syncfusion.com/angular/documentation/diagram/hierarchical-layout#hierarchical-layout-with-datasource)
+
+---

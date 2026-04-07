@@ -1,6 +1,6 @@
 # Syncfusion React Diagram — MySQL Example
 
-Quick README for the sample that demonstrates connecting a Syncfusion React Diagram to a MySQL database via an ASP.NET Core backend.
+This project demonstrates how to load **Syncfusion React Diagram** layout data from a **MySQL database** via an ASP.NET Core backend.
 
 ## Contents
 - Diagram_MySQL.Server/  — ASP.NET Core Web API (LINQ2DB)
@@ -9,7 +9,7 @@ Quick README for the sample that demonstrates connecting a Syncfusion React Diag
 
 ## Prerequisites
 - MySQL server
-- .NET SDK (6/7/8+)
+- .NET SDK 10
 - Node.js 18/20+ and npm
 - (Optional) Visual Studio / VS Code
 

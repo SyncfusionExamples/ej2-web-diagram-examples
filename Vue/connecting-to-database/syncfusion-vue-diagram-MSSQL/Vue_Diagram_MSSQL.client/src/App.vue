@@ -5,7 +5,7 @@
       :width="'1000px'"
       height="600px"
       :snapSettings="{ constraints: SnapConstraints.None }"
-      :layout="{ type: 'HierarchicalTree' }"
+      :layout="{ type: 'OrganizationalChart' }"
       :dataSourceSettings="dataSourceSettings"
       :getNodeDefaults="getNodeDefaults"
       :getConnectorDefaults="getConnectorDefaults"
@@ -30,6 +30,7 @@ export default defineComponent({
   data() {
     const dataManager = new DataManager({
       url: "http://localhost:5239/api/LayoutNodes",
+      adaptor: new UrlAdaptor(),
     });
 
     return {

@@ -29,7 +29,7 @@ export default defineComponent({
   },
   data() {
     const dataManager = new DataManager({
-      url: "http://localhost:5137/api/Diagram",
+      url: "http://localhost:5239/api/LayoutNodes",
     });
 
     return {
@@ -44,7 +44,7 @@ export default defineComponent({
         doBinding: (nodeModel: any, data: any) => {
           nodeModel.annotations = [
             {
-              content: data.name,
+              content: data.role,
               style: { color: "#FFFFFF" },
             },
           ];

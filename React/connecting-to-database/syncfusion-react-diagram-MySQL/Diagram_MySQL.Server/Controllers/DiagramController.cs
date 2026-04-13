@@ -17,11 +17,11 @@ namespace Diagram_MySQL.Server.Controllers
         [HttpGet("items")]
         public async Task<IActionResult> GetItems()
         {
-            var rows = await _db.Employees
+            var items = await _db.Employees
                 .Select(e => new { e.Id, e.ParentId, e.Name })
                 .ToListAsync();
 
-            return Ok(rows);
+            return Ok(items);
         }
     }
 }

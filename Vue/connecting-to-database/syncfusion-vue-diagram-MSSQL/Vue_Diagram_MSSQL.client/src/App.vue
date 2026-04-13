@@ -5,7 +5,7 @@
       :width="'1000px'"
       height="600px"
       :snapSettings="{ constraints: SnapConstraints.None }"
-      :layout="{ type: 'HierarchicalTree' }"
+      :layout="{ type: 'OrganizationalChart' }"
       :dataSourceSettings="dataSourceSettings"
       :getNodeDefaults="getNodeDefaults"
       :getConnectorDefaults="getConnectorDefaults"

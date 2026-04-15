@@ -1,0 +1,6 @@
+@JS_Diagram_MSSQL_HostAddress = http://localhost:5280
+
+GET {{JS_Diagram_MSSQL_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

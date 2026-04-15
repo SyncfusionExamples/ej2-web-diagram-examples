@@ -9,7 +9,7 @@ namespace MySQL_Diagram.Server.Controllers
     [ApiController]
     public class DiagramController : ControllerBase
     {
-        string ConnectionString = @"Server=localhost;Port=3306;Database=diagramdb;Uid=root;Pwd=Chellausing@SQL;SslMode=none;";
+        string ConnectionString = @"Server=localhost;Port=3306;Database=diagramdb;Uid=root;Pwd=12345678;SslMode=none;";
 
         /// <summary>
         /// Retrieves the employee data from the database.

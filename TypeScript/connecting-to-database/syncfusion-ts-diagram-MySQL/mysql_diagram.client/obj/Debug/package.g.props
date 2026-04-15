@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">mysql_diagram.client</PackageJsonName>
+    <PackageJsonVersion Condition="$(PackageJsonVersion) == ''">0.0.1</PackageJsonVersion>
+    <PackageJsonDescription Condition="$(PackageJsonDescription) == ''">Essential JS 2 typescript quick start application</PackageJsonDescription>
+    <PackageJsonAuthor Condition="$(PackageJsonAuthor) == ''">Syncfusion Inc.</PackageJsonAuthor>
+    <PackageJsonLicense Condition="$(PackageJsonLicense) == ''">SEE LICENSE IN license</PackageJsonLicense>
+    <PackageJsonRepositoryType Condition="$(PackageJsonRepositoryType) == ''">git</PackageJsonRepositoryType>
+    <PackageJsonRepositoryUrl Condition="$(PackageJsonRepositoryUrl) == ''">https://github.com/syncfusion/ej2-quickstart.git</PackageJsonRepositoryUrl>
+    <PackageJsonScriptsStart Condition="$(PackageJsonScriptsStart) == ''">webpack serve --mode development</PackageJsonScriptsStart>
+    <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">webpack --mode production</PackageJsonScriptsBuild>
+    <PackageJsonScriptsServe Condition="$(PackageJsonScriptsServe) == ''">gulp e2e-serve</PackageJsonScriptsServe>
+    <PackageJsonScriptsTest Condition="$(PackageJsonScriptsTest) == ''">gulp e2e-test</PackageJsonScriptsTest>
+    <PackageJsonScriptsUpdateWebdriver Condition="$(PackageJsonScriptsUpdateWebdriver) == ''">gulp e2e-webdriver-update</PackageJsonScriptsUpdateWebdriver>
+    <PackageJsonDevdependenciesAjv Condition="$(PackageJsonDevdependenciesAjv) == ''">^8.11.2</PackageJsonDevdependenciesAjv>
+    <PackageJsonDevdependenciesBrowserSync Condition="$(PackageJsonDevdependenciesBrowserSync) == ''">^2.18.12</PackageJsonDevdependenciesBrowserSync>
+    <PackageJsonDevdependenciesCssLoader Condition="$(PackageJsonDevdependenciesCssLoader) == ''">^6.7.2</PackageJsonDevdependenciesCssLoader>
+    <PackageJsonDevdependenciesGulp Condition="$(PackageJsonDevdependenciesGulp) == ''">*</PackageJsonDevdependenciesGulp>
+    <PackageJsonDevdependenciesGulpProtractor Condition="$(PackageJsonDevdependenciesGulpProtractor) == ''">*</PackageJsonDevdependenciesGulpProtractor>
+    <PackageJsonDevdependenciesGulpTypescript Condition="$(PackageJsonDevdependenciesGulpTypescript) == ''">*</PackageJsonDevdependenciesGulpTypescript>
+    <PackageJsonDevdependenciesHtmlWebpackPlugin Condition="$(PackageJsonDevdependenciesHtmlWebpackPlugin) == ''">^5.5.0</PackageJsonDevdependenciesHtmlWebpackPlugin>
+    <PackageJsonDevdependenciesJasmine Condition="$(PackageJsonDevdependenciesJasmine) == ''">^2.6.0</PackageJsonDevdependenciesJasmine>
+    <PackageJsonDevdependenciesMiniCssExtractPlugin Condition="$(PackageJsonDevdependenciesMiniCssExtractPlugin) == ''">^2.7.0</PackageJsonDevdependenciesMiniCssExtractPlugin>
+    <PackageJsonDevdependenciesTsLoader Condition="$(PackageJsonDevdependenciesTsLoader) == ''">^9.4.1</PackageJsonDevdependenciesTsLoader>
+    <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">*</PackageJsonDevdependenciesTypescript>
+    <PackageJsonDevdependenciesWebpack Condition="$(PackageJsonDevdependenciesWebpack) == ''">^5.75.0</PackageJsonDevdependenciesWebpack>
+    <PackageJsonDevdependenciesWebpackCli Condition="$(PackageJsonDevdependenciesWebpackCli) == ''">^5.0.0</PackageJsonDevdependenciesWebpackCli>
+    <PackageJsonDevdependenciesWebpackDevServer Condition="$(PackageJsonDevdependenciesWebpackDevServer) == ''">^5.2.1</PackageJsonDevdependenciesWebpackDevServer>
+    <PackageJsonDevdependenciesWebpackStream Condition="$(PackageJsonDevdependenciesWebpackStream) == ''">^7.0.0</PackageJsonDevdependenciesWebpackStream>
+    <PackageJsonDependenciesSyncfusionEj2Data Condition="$(PackageJsonDependenciesSyncfusionEj2Data) == ''">^33.1.45</PackageJsonDependenciesSyncfusionEj2Data>
+    <PackageJsonDependenciesSyncfusionEj2Diagrams Condition="$(PackageJsonDependenciesSyncfusionEj2Diagrams) == ''">^33.1.49</PackageJsonDependenciesSyncfusionEj2Diagrams>
+  </PropertyGroup>
+</Project>

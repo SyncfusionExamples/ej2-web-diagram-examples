@@ -1,1 +1,0 @@
-D:\chella\TypeScript\connecting-to-database\syncfusion-ts-diagram-MySQL\mysql_diagram.client\obj\Debug\mysql_diagram.client.esproj.CoreCompileInputs.cache

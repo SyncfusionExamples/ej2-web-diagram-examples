@@ -1,0 +1,29 @@
+{
+  "name": "TS_Diagram_MSSQL",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=development --watch",
+    "release": "webpack --mode=production",
+    "publish": "npm run release && dotnet publish -c Release"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "clean-webpack-plugin": "4.0.0",
+    "css-loader": "7.1.2",
+    "html-webpack-plugin": "5.6.3",
+    "mini-css-extract-plugin": "2.9.2",
+    "ts-loader": "9.5.2",
+    "typescript": "5.8.2",
+    "webpack": "5.98.0",
+    "webpack-cli": "6.0.1"
+  },
+  "dependencies": {
+    "@syncfusion/ej2-data": "^29.1.33",
+    "@syncfusion/ej2-diagrams": "^29.1.33",
+    "@types/node": "^22.14.0"
+  }
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DiagramComponent,
   Inject,
@@ -14,7 +13,7 @@ export interface Employee { id: number; name: string; parentId?: number | null; 
 
 export default function App() {
   const dataManager = new DataManager({
-    url: "http://localhost:5283/api/diagram/items",
+    url: "http://localhost:5296/api/Diagram/items",
   });
 
   return (
@@ -28,24 +27,28 @@ export default function App() {
         layout={{ type: "HierarchicalTree" }}
         // Configure data source mapping
         dataSourceSettings={{
+          //  Maps the database column (`Id`) to uniquely identify each node.
           id: "id",
+          // Maps the database column (`ParentId`) to establish parent-child relationships.
           parentId: "parentId",
+          // DataManager pointing to the API endpoint that returns employee data.
           dataSource: dataManager,
+          // Callback function that customizes node appearance
           doBinding: (nodeModel: NodeModel, data: Employee) => {
             nodeModel.annotations = [{
               content: data.name,
               style: { color: '#FFFFFF' }
             }];
           }
-          // nameField for node label mapping
-          // if the component uses node data name, use 'Name' in getNodeDefaults below
         }}
+        // Defines default styling for all nodes
         getNodeDefaults={(node: NodeModel) => {
           node.width = 120;
           node.height = 40;
           node.style = { fill: '#1F3A8A', strokeColor: '#1E40AF' };
           return node;
         }}
+        // Defines default styling for connectors
         getConnectorDefaults={(connector: ConnectorModel) => {
           connector.type = 'Orthogonal';
           connector.cornerRadius = 7;
@@ -56,6 +59,7 @@ export default function App() {
           };
         }}
       >
+        {/* Inject required feature services */}
         <Inject services={[DataBinding, HierarchicalTree]} />
       </DiagramComponent>
     </div>

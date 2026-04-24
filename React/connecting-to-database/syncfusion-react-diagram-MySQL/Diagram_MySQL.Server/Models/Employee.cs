@@ -1,4 +1,4 @@
-using LinqToDB.Mapping;
+﻿using LinqToDB.Mapping;
 
 namespace Diagram_MySQL.Server.Models
 {
@@ -6,12 +6,14 @@ namespace Diagram_MySQL.Server.Models
     public class Employee
     {
         [PrimaryKey, Identity]
-        public int? Id { get; set; }
+        [Column("Id")]
+        public int Id { get; set; }
 
-        [Column, NotNull]
+        [Column("Name")]
+        [NotNull]
         public string Name { get; set; }
 
-        [Column]
+        [Column("ParentId")]
         public int? ParentId { get; set; }
     }
 }

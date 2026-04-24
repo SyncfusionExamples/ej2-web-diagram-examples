@@ -9,7 +9,7 @@ This project demonstrates how to load **Syncfusion React Diagram** layout data f
 
 ## Prerequisites
 - MySQL server
-- .NET SDK 10
+- .NET SDK 8
 - Node.js 18/20+ and npm
 - (Optional) Visual Studio / VS Code
 
@@ -33,7 +33,7 @@ This creates `diagramdb` and the `employees` table (Id, Name, ParentId).
    dotnet run
 ```
 Default API used in examples:
-GET http://localhost:5283/api/diagram/items
+GET http://localhost:5296/api/Diagram/items
 (Port may differ — check the console output when running `dotnet run`.)
 
 ## Frontend: install & run
@@ -49,6 +49,10 @@ GET http://localhost:5283/api/diagram/items
 
 3. The React app uses a DataManager with a UrlAdaptor pointing to the backend `/api/diagram/items` and binds via Diagram `dataSourceSettings` (id = Id, parentId = ParentId).
 
+4. Run the Application
+```bash
+npm run dev
+```
 ## Key files
 - setup-database.sql — schema + seed
 - Diagram_MySQL.Server/Controllers/DiagramController.cs — returns [{ Id, ParentId, Name }]

@@ -1,9 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-// import { registerLicense } from '@syncfusion/ej2-base';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
 
-import { AppComponent } from './app/app.component';
-
-// TODO: replace with your Syncfusion license key.
-// registerLicense('YOUR SYNCFUSION LICENSE KEY');
-
-bootstrapApplication(AppComponent).catch(err => console.error(err));
+bootstrapApplication(App, appConfig)
+  .catch((err) => console.error(err));

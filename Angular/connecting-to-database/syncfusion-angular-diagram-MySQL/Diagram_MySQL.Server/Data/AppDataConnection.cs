@@ -1,9 +1,8 @@
-using DIAGRAM_MySQL.Server.Models;
+﻿using Diagram_MySQL.Server.Models;
 using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.DataProvider.MySql;
-
-namespace DIAGRAM_MySQL.Server.Data
+namespace Diagram_MySQL.Server.Data
 {
     public sealed class AppDataConnection : DataConnection
     {

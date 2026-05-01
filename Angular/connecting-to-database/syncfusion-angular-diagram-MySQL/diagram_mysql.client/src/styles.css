@@ -1,5 +1,4 @@
-@import '../node_modules/@syncfusion/ej2-base/styles/bootstrap5.3.css';  
-@import '../node_modules/@syncfusion/ej2-navigations/styles/bootstrap5.3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/bootstrap5.3.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/bootstrap5.3.css';
-@import '../node_modules/@syncfusion/ej2-diagrams/styles/bootstrap5.3.css';
+@import "../node_modules/@syncfusion/ej2-angular-diagrams/styles/bootstrap5.3.css";
+@import "../node_modules/@syncfusion/ej2-base/styles/bootstrap5.3.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/bootstrap5.3.css";
+@import "../node_modules/@syncfusion/ej2-navigations/styles/bootstrap5.3.css";

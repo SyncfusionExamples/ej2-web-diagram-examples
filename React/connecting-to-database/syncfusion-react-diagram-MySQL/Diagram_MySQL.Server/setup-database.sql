@@ -1,49 +1,28 @@
--- 1. Create Database
-CREATE DATABASE IF NOT EXISTS diagramdb;
+-- Create database with UTF-8 support
+CREATE DATABASE IF NOT EXISTS diagramdb
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
 
--- 2. Use Database
+-- Select the database
 USE diagramdb;
 
--- 3. Drop table if exists (safe re-run)
-DROP TABLE IF EXISTS employees;
+-- Create employees table
+CREATE TABLE IF NOT EXISTS employees (
+  Id               INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Name             VARCHAR(100) NOT NULL,
+  ParentId         INT NULL,
+  FOREIGN KEY (ParentId) REFERENCES employees(Id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 4. Create Employees Table
-CREATE TABLE employees (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100) NOT NULL,
-    ParentId INT NULL,
-    CONSTRAINT fk_parent
-        FOREIGN KEY (ParentId)
-        REFERENCES employees(Id)
-        ON DELETE CASCADE
-);
-
--- 5. Insert Employees Data
--- Hierarchy Depth: CEO → Manager → Lead → Senior Engineer → Engineer
-
-INSERT INTO employees (Name, ParentId) VALUES
--- Level 1
+-- Insert sample organizational hierarchy data
+INSERT INTO employees (Name, ParentId)
+VALUES
 ('CEO', NULL),
-
--- Level 2
-('Manager A', 1),
-('Manager B', 1),
-
--- Level 3
-('Lead A1', 2),
-('Lead B1', 3),
-
--- Level 4
-('Senior Engineer A1-1', 4),
-('Senior Engineer B1-1', 5),
-
--- Level 5
-('Engineer A1-1-1', 6),
-('Engineer A1-1-2', 6),
-('Engineer B1-1-1', 7),
-('Engineer B1-1-2', 7);
-
--- 6. Verify Data
-SELECT Id, Name, ParentId
-FROM employees
-ORDER BY Id;
+('VP Engineering', 1),
+('VP Sales', 1),
+('Engineering Lead', 2),
+('Sales Manager', 3),
+('Developer 1', 4),
+('Developer 2', 4),
+('Sales Rep 1', 5),
+('Sales Rep 2', 5);

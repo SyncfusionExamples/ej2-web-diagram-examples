@@ -13,7 +13,7 @@ export interface Employee { id: number; name: string; parentId?: number | null; 
 
 export default function App() {
   const dataManager = new DataManager({
-    url: "http://localhost:5296/api/Diagram/items",
+    url: "http://localhost:5296/api/diagram/items",
   });
 
   return (
@@ -23,8 +23,8 @@ export default function App() {
         width={"100%"}
         height={"600px"}
         snapSettings={{ constraints: SnapConstraints.None }}
-        // Use hierarchical tree layout
-        layout={{ type: "HierarchicalTree" }}
+        // Use organizational chart layout
+        layout={{ type: "OrganizationalChart" }}
         // Configure data source mapping
         dataSourceSettings={{
           //  Maps the database column (`Id`) to uniquely identify each node.

@@ -33,7 +33,7 @@ This creates `diagramdb` and the `employees` table (Id, Name, ParentId).
    dotnet run
 ```
 Default API used in examples:
-GET http://localhost:5296/api/Diagram/items
+GET http://localhost:5296/api/diagram/items
 (Port may differ — check the console output when running `dotnet run`.)
 
 ## Frontend: install & run
@@ -65,6 +65,6 @@ npm run dev
 - Inspect network tab; endpoint must return JSON array of items with Id and ParentId.
 
 ## References
-- [Diagram hierarchical layout with datasource](https://ej2.syncfusion.com/react/documentation/diagram/hierarchical-layout#hierarchical-layout-with-datasource)
+- [Diagram organizational layout with datasource](https://ej2.syncfusion.com/react/documentation/diagram/org-chart#organizational-chart-with-datasource)
 
 ---

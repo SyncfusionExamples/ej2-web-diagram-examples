@@ -1,17 +1,19 @@
-using LinqToDB.Mapping;
+﻿using LinqToDB.Mapping;
 
-namespace DIAGRAM_MySQL.Server.Models
+namespace Diagram_MySQL.Server.Models
 {
     [Table("employees")]
     public class Employee
     {
         [PrimaryKey, Identity]
-        public int? Id { get; set; }
-        
-        [Column, NotNull]
+        [Column("Id")]
+        public int Id { get; set; }
+
+        [Column("Name")]
+        [NotNull]
         public string Name { get; set; }
 
-        [Column]
+        [Column("ParentId")]
         public int? ParentId { get; set; }
     }
 }

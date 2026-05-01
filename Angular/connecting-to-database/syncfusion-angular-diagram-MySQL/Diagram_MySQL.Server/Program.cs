@@ -1,19 +1,27 @@
-using DIAGRAM_MySQL.Server.Data;
+using Diagram_MySQL.Server.Data;
 using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.DataProvider.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+// Add services to the container.
 
-// CORS (dev)
+builder.Services.AddControllers().AddNewtonsoftJson();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
+// Configure CORS (Cross-Origin Resource Sharing) for development
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("cors", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    options.AddPolicy("cors", p => p
+        .AllowAnyOrigin()      // Allow requests from any domain
+        .AllowAnyHeader()      // Allow any HTTP headers
+        .AllowAnyMethod()      // Allow GET, POST, PUT, DELETE, etc.
+    );
 });
-
-// 1) Register LinqToDB engine (connection factory) with MySQL provider
+// Register LINQ2DB with MySQL provider
 builder.Services.AddLinqToDB(
     (sp, options) =>
         options.UseMySql(
@@ -22,13 +30,23 @@ builder.Services.AddLinqToDB(
             MySqlProvider.MySqlConnector
         )
 );
-
-// 2) Register your typed DataConnection so controllers can inject it
+// Register AppDataConnection for dependency injection
 builder.Services.AddScoped<AppDataConnection>();
-
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+// Apply CORS policy
 app.UseCors("cors");
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

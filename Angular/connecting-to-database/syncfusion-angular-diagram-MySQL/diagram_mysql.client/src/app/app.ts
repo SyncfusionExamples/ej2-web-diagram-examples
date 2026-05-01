@@ -9,18 +9,17 @@ import { DataManager } from '@syncfusion/ej2-data';
 
 export interface Employee { id: number; name: string; parentId?: number | null; }
 
-const BASE_URL = 'http://localhost:5283/api/diagram/items';
+const BASE_URL = 'http://localhost:5296/api/diagram/items';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [DiagramModule],
   providers: [DataBindingService, HierarchicalTreeService],
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
 })
-export class AppComponent implements OnInit {
+export class App implements OnInit {
   public layout: LayoutModel = {
-    type: 'HierarchicalTree'
+    type: 'OrganizationalChart',
   }
   public dataSourceSettings?: DataSourceModel;
 
@@ -54,7 +53,6 @@ export class AppComponent implements OnInit {
       strokeColor: '#94A3B8',
       strokeWidth: 1.5
     };
-
   };
 
   public snapSettings: SnapSettingsModel = { constraints: SnapConstraints.None }

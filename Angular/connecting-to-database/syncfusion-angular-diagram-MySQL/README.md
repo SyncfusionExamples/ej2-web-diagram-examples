@@ -47,8 +47,11 @@ GET http://localhost:5283/api/diagram/items
 ```bash
    npm install
 ```
-
-3. The Angular app uses a DataManager with a UrlAdaptor pointing to the backend `/api/diagram/items` and binds via Diagram `dataSourceSettings` (id = Id, parentId = ParentId).
+3. Run the Application
+```bash
+   ng serve
+```
+3. The Angular app uses a DataManager pointing to the backend `/api/diagram/items` and binds via Diagram `dataSourceSettings` (id = Id, parentId = ParentId).
 
 ## Key files
 - setup-database.sql — schema + seed

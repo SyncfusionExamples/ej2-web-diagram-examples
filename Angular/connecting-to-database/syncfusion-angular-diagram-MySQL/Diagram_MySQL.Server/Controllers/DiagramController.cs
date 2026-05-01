@@ -1,11 +1,9 @@
-using DIAGRAM_MySQL.Server.Data;
-using DIAGRAM_MySQL.Server.Models;
+﻿using Diagram_MySQL.Server.Data;
+using Diagram_MySQL.Server.Models;
 using LinqToDB;
 using LinqToDB.Async;
 using Microsoft.AspNetCore.Mvc;
-using Syncfusion.EJ2.Base;
-
-namespace DIAGRAM_MySQL.Server.Controllers
+namespace Diagram_MySQL.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Syncfusion Diagram Performance Test Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Syncfusion Diagram Performance Test Lab</h1>
+        <p>
+          Initial render / Drag / Resize / Rotate / Connector End Point Drag /
+          Layout benchmarks
+        </p>
+      </div>
+      <div class="header-badge">EJ2 Diagram • TypeScript</div>
+    </header>
+
+    <section class="top-toolbar card">
+      <div class="quick-title">
+        <h2>Quick Actions</h2>
+        <span>Scenarios, layouts and actions</span>
+      </div>
+
+      <div class="quick-grid quick-grid-6">
+        <button id="btnSelect10" class="btn">Select 10</button>
+        <button id="btnSelect50" class="btn">Select 50</button>
+        <button id="btnDragTest" class="btn">Drag</button>
+        <button id="btnResizeTest" class="btn">Resize</button>
+        <button id="btnRotateTest" class="btn">Rotate</button>
+        <button id="btnConnectorDragTest" class="btn">End Point Drag</button>
+      </div>
+
+      <div class="quick-grid quick-grid-8">
+        <button id="btnInitialLoad" class="btn btn-primary">Init</button>
+        <button id="btnOneConnector" class="btn">1 Connector</button>
+
+        <select id="connectorTypeSelect" class="select-control">
+          <option value="Straight">Straight</option>
+          <option value="Orthogonal">Orthogonal</option>
+          <option value="Bezier">Bezier</option>
+        </select>
+
+        <button id="btnHierarchy" class="btn">Hierarchical Tree</button>
+        <button id="btnComplex" class="btn">Complex Tree</button>
+        <button id="btnOrg" class="btn">Org Chart</button>
+        <button id="btnMind" class="btn">Mind Map</button>
+        <button id="btnOrgTemplate" class="btn">Org Template</button>
+
+
+      </div>
+
+      <div class="quick-footer">
+        <button id="btnClearLog" class="btn btn-ghost">Clear Log</button>
+        <label class="toggle-chip">
+          <input id="showAnnotations" type="checkbox" checked />
+          <span>Show annotations</span>
+        </label>
+
+        <div class="quick-status">
+          <span>Status: <strong id="statusText">Ready</strong></span>
+          <span>Last: <strong id="lastActionText">None</strong></span>
+          <span>Mode: <strong id="currentModeText">Init</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <main class="app-main">
+      <section class="diagram-panel card">
+        <div class="panel-header">
+          <h2>Diagram</h2>
+          <span class="panel-subtitle">Rendering, layout, and interactive timing</span>
+        </div>
+ 
+        <div id="diagramHost" class="diagram-host"><div id="diagram"></div>
+</div>
+
+      </section>
+
+      <aside class="control-panel card">
+        <div class="panel-header">
+          <h2>Control Panel</h2>
+          <span class="panel-subtitle">Node/connector input and live output</span>
+        </div>
+
+        <div class="control-content">
+          <div class="control-grid">
+            <label class="field">
+              <span>Node Count</span>
+              <input id="nodeCount" type="number" min="10" max="100" step="1" value="70" />
+            </label>
+
+            <label class="field">
+              <span>Connector Count</span>
+              <input id="connectorCount" type="number" min="50" max="100" step="1" value="70" />
+            </label>
+          </div>
+
+          <div class="log-wrap">
+            <div class="log-header">
+              <h3>Live Performance Output</h3>
+              <span id="liveTimestamp">--</span>
+            </div>
+            <div id="log" class="log-viewer"></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

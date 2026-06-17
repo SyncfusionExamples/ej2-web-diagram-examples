@@ -1,0 +1,7 @@
+title = "Custom gitleaks config"
+
+[allowlist]
+description = "Ignore generated EJ2 CSS false positives in CollaborativeEditing sample"
+paths = [
+  '''CollaborativeEditing/Client Side/AspNetMVC/CollaborationSample/wwwroot/css/ej2/.*\.css$'''
+]

@@ -1,6 +1,6 @@
 # Organizational Chart Application
 
-A full-stack application that displays an organizational chart using Syncfusion Angular Diagrams with data stored in a PostgreSQL database.
+A full-stack application that displays an organizational chart using [Angular Diagram](https://www.syncfusion.com/diagram-sdk/angular-diagram) with data stored in a PostgreSQL database.
 
 ## Project Overview
 
@@ -101,3 +101,5 @@ npm start
 ```
 
 The client will start on `http://localhost:4200` (Angular's default port).
+
+> Looking for the full Angular Diagram component overview, features, pricing, and documentation? Visit the [Angular Diagram](https://www.syncfusion.com/diagram-sdk/angular-diagram) page.

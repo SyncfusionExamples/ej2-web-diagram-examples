@@ -1,6 +1,6 @@
 # Organizational Chart Application
 
-A full-stack application that displays an organizational chart using Syncfusion React Diagrams with data stored in a PostgreSQL database.
+A full-stack application that displays an organizational chart using [React Diagram](https://www.syncfusion.com/diagram-sdk/react-diagram) with data stored in a PostgreSQL database.
 
 ## Project Overview
 

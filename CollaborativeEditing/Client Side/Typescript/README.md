@@ -73,3 +73,7 @@ You can also refer the below resources to know more details about Essential JS 2
 
 * [Pure JS Demos](http://ej2.syncfusion.com/demos/)
 * [Pure JS Documentation](http://ej2.syncfusion.com/documentation/)
+
+# How to Create a Mind Map Using the Vue Diagram
+
+A quick start Vue project that shows how to use the collaborative editing feature in the [Vue Diagram](https://www.syncfusion.com/diagram-sdk/vue-diagram) component to track incremental updates and broadcasting them to multiple users via a web communication protocol like SignalR or WebSockets.

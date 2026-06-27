@@ -1,6 +1,6 @@
 # Syncfusion Angular Diagram — MySQL Example
 
-This project demonstrates how to load **Syncfusion Angular Diagram** layout data from a **MySQL database** via an ASP.NET Core backend.
+This project demonstrates how to load **[Angular Diagram](https://www.syncfusion.com/diagram-sdk/angular-diagram)** layout data from a **MySQL database** via an ASP.NET Core backend.
 
 ## Contents
 - Diagram_MySQL.Server/  — ASP.NET Core Web API (LINQ2DB)
@@ -67,4 +67,5 @@ GET http://localhost:5283/api/diagram/items
 ## References
 - [Diagram hierarchical layout with datasource](https://ej2.syncfusion.com/angular/documentation/diagram/hierarchical-layout#hierarchical-layout-with-datasource)
 
+> Looking for the full Angular Diagram component overview, features, pricing, and documentation? Visit the [Angular Diagram](https://www.syncfusion.com/diagram-sdk/angular-diagram) page.
 ---

@@ -1,7 +1,7 @@
 # Angular_Diagram_MSSQL
 
 Repository purpose
-- Demo application showing an Angular UI using Syncfusion Diagram bound to layout node data stored in Microsoft SQL Server, served by an ASP.NET Core Web API.
+- Demo application showing an Angular UI using [Angular Diagram](https://www.syncfusion.com/diagram-sdk/angular-diagram) bound to layout node data stored in Microsoft SQL Server, served by an ASP.NET Core Web API.
 
 Repository layout
 - Angular_Diagram_MSSQL.client/ — Angular frontend (Syncfusion Diagram).
@@ -43,3 +43,5 @@ Notes & troubleshooting
 
 Further reading
 - See sub-folder READMEs for detailed server- and client-specific instructions and development notes.
+
+> Looking for the full Angular Diagram component overview, features, pricing, and documentation? Visit the [Angular Diagram](https://www.syncfusion.com/diagram-sdk/angular-diagram) page.
